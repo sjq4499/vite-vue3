@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2021-12-07 13:55:53
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-03 10:03:44
+ * @LastEditTime: 2022-03-03 16:38:31
  */
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
@@ -13,6 +13,7 @@ import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  publicPath: "/vite-vue3/",
   plugins: [
     vue(),
     AutoImport({
