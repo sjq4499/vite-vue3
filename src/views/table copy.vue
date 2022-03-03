@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-02-23 10:31:38
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-03 15:54:08
+ * @LastEditTime: 2022-03-03 15:47:34
 -->
 <template>
   <div class="">
@@ -29,21 +29,21 @@
 </template>
 <script>
 import { formDate } from "@/utils/index.js";
-import { defineComponent, ref, reactive } from "vue";
-export default defineComponent({
-  setup() {
+
+export default {
+  name: "table",
+  data() {
     return {
-      value: ref(
-        "日期：2022.1.19 \n单名：企鹅互助 \n姓名：xxxx \n手机号：15951379999 \n我的群昵称：柠萌 小易组 冷易"
-      ),
-      data: ref([]),
-      dataProp: reactive({
+      value:
+        "日期：2022.1.19 \n单名：企鹅互助 \n姓名：xxxx \n手机号：15951379999 \n我的群昵称：柠萌 小易组 冷易",
+      data: [],
+      dataProp: {
         日期: "date",
         单名: "appName",
         姓名: "name",
         手机号: "mobile",
         我的群昵称: "nickname",
-      }),
+      },
     };
   },
   created() {
@@ -86,7 +86,7 @@ export default defineComponent({
       });
     },
   },
-});
+};
 </script>
 <style scoped>
 .btns {
