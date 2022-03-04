@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2021-12-07 13:55:53
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-03 10:25:02
+ * @LastEditTime: 2022-03-04 11:39:19
 -->
 
 <template>
@@ -11,4 +11,9 @@
 </template>
 <script setup></script>
 
-<style></style>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+}
+</style>
