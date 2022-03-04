@@ -3,17 +3,17 @@
  * @Author: sjq
  * @Date: 2022-02-23 10:31:38
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-04 14:06:51
+ * @LastEditTime: 2022-03-04 15:22:55
 -->
 <template>
   <div class="main">
     <div style="margin: 10px 0">
-      地址 <el-button type="primary" @click="importFun">导入 </el-button>
+      地址 <el-button type="primary" @click="importFun(1)">导入 </el-button>
     </div>
     <el-input v-model="value1" placeholder="" :clearable="true"></el-input>
     <div style="margin: 10px 0">
       app <el-button type="primary" @click="clearValue">一键清空</el-button>
-      <el-button type="primary" @click="importFun">导入 </el-button>
+      <el-button type="primary" @click="importFun(2)">导入 </el-button>
     </div>
     <el-input
       type="textarea"
@@ -97,9 +97,9 @@ export default defineComponent({
   },
   methods: {
     // 导入
-    importFun() {
+    importFun(type) {
       let obj = {};
-      if (this.tableHeader === 1) {
+      if (type === 1) {
         let value = this.value1.split("。");
         obj = {
           date: formDate({}, "md"),
@@ -120,6 +120,11 @@ export default defineComponent({
         Object.values(headerObj).forEach((item, index) => {
           obj[item] = value[index];
         });
+        this.value = "日期：" + formDate({}, "md") + "\n";
+        Object.keys(headerObj).forEach((item, index) => {
+          this.value += item + "：" + obj[headerObj[item]] + "\n";
+        });
+        this.value += "类型：香水";
         console.log(obj);
       } else {
         let arr = this.value.split("\n").filter((item) => item !== "");
