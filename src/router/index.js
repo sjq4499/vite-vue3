@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-03-03 10:16:24
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-07 15:16:19
+ * @LastEditTime: 2022-03-07 16:44:31
  */
 import { createRouter, createWebHashHistory } from "vue-router";
 
@@ -23,6 +23,11 @@ const routes = [
     path: "/dog",
     name: "dog",
     component: () => import("@/views/dog.vue"),
+  },
+  {
+    path: "/scratchCard",
+    name: "scratchCard",
+    component: () => import("@/views/scratchCard.vue"),
   },
 ];
 
