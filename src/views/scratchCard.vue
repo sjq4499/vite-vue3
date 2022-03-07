@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-03-07 15:39:13
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-07 17:02:00
+ * @LastEditTime: 2022-03-07 17:12:12
 -->
 <template>
   <div class="container" id="top">
@@ -11,7 +11,7 @@
       <div class="award" v-if="showPrize">
         <div class="title">恭喜您获得</div>
         <span>{{
-          Math.round(Math.random() * 3) === 0
+          Math.round(Math.random() * 5) == 3
             ? "一亿元"
             : Math.round(Math.random() * 10000000)
         }}</span>
