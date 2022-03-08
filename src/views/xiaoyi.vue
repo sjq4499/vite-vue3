@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-03-07 16:44:39
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-07 20:46:44
+ * @LastEditTime: 2022-03-08 16:48:40
 -->
 <template>
   <div class="box">
@@ -90,51 +90,51 @@ li {
   top: 0;
 }
 .minbox li:nth-child(1) {
-  background: url(@/assets/img/1.png) no-repeat 0 0;
+  background: url(@/assets/img/xiaoyi1.png) no-repeat 0 0;
   -webkit-transform: translateZ(50px);
 }
 .minbox li:nth-child(2) {
-  background: url(@/assets/img/1.png) no-repeat 0 0;
+  background: url(@/assets/img/xiaoyi1.png) no-repeat 0 0;
   -webkit-transform: rotateX(180deg) translateZ(50px);
 }
 .minbox li:nth-child(3) {
-  background: url(@/assets/img/1.png) no-repeat 0 0;
+  background: url(@/assets/img/xiaoyi1.png) no-repeat 0 0;
   -webkit-transform: rotateX(-90deg) translateZ(50px);
 }
 .minbox li:nth-child(4) {
-  background: url(@/assets/img/1.png) no-repeat 0 0;
+  background: url(@/assets/img/xiaoyi2.png) no-repeat 0 0;
   -webkit-transform: rotateX(90deg) translateZ(50px);
 }
 .minbox li:nth-child(5) {
-  background: url(@/assets/img/1.png) no-repeat 0 0;
+  background: url(@/assets/img/xiaoyi2.png) no-repeat 0 0;
   -webkit-transform: rotateY(-90deg) translateZ(50px);
 }
 .minbox li:nth-child(6) {
-  background: url(@/assets/img/1.png) no-repeat 0 0;
+  background: url(@/assets/img/xiaoyi2.png) no-repeat 0 0;
   -webkit-transform: rotateY(90deg) translateZ(50px);
 }
 .maxbox li:nth-child(1) {
-  background: url(@/assets/img/1.png) no-repeat 0 0;
+  background: url(@/assets/img/xiaoyi3.jpg) no-repeat 0 0;
   -webkit-transform: translateZ(50px);
 }
 .maxbox li:nth-child(2) {
-  background: url(@/assets/img/1.png) no-repeat 0 0;
+  background: url(@/assets/img/xiaoyi3.jpg) no-repeat 0 0;
   -webkit-transform: translateZ(50px);
 }
 .maxbox li:nth-child(3) {
-  background: url(@/assets/img/1.png) no-repeat 0 0;
+  background: url(@/assets/img/xiaoyi3.jpg) no-repeat 0 0;
   -webkit-transform: rotateX(-90deg) translateZ(50px);
 }
 .maxbox li:nth-child(4) {
-  background: url(@/assets/img/1.png) no-repeat 0 0;
+  background: url(@/assets/img/xiaoyi3.jpg) no-repeat 0 0;
   -webkit-transform: rotateX(90deg) translateZ(50px);
 }
 .maxbox li:nth-child(5) {
-  background: url(@/assets/img/1.png) no-repeat 0 0;
+  background: url(@/assets/img/xiaoyi3.jpg) no-repeat 0 0;
   -webkit-transform: rotateY(-90deg) translateZ(50px);
 }
 .maxbox li:nth-child(6) {
-  background: url(@/assets/img/1.png) no-repeat 0 0;
+  background: url(@/assets/img/xiaoyi3.jpg) no-repeat 0 0;
   -webkit-transform: rotateY(90deg) translateZ(50px);
 }
 .maxbox {
