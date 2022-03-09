@@ -3,22 +3,22 @@
  * @Author: sjq
  * @Date: 2022-03-09 16:50:12
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-09 17:04:33
+ * @LastEditTime: 2022-03-09 17:59:45
 -->
 <template>
   <div id="perspective">
     <div id="wrap">
       <img src="@/assets/img/susu.jpg" />
+      <img src="@/assets/img/susu2.jpg" />
+      <img src="@/assets/img/susu3.jpg" />
       <img src="@/assets/img/susu.jpg" />
+      <img src="@/assets/img/susu2.jpg" />
+      <img src="@/assets/img/susu3.jpg" />
       <img src="@/assets/img/susu.jpg" />
+      <img src="@/assets/img/susu2.jpg" />
+      <img src="@/assets/img/susu3.jpg" />
       <img src="@/assets/img/susu.jpg" />
-      <img src="@/assets/img/susu.jpg" />
-      <img src="@/assets/img/susu.jpg" />
-      <img src="@/assets/img/susu.jpg" />
-      <img src="@/assets/img/susu.jpg" />
-      <img src="@/assets/img/susu.jpg" />
-      <img src="@/assets/img/susu.jpg" />
-      <img src="@/assets/img/susu.jpg" />
+      <img src="@/assets/img/susu3.jpg" />
       <p></p>
     </div>
   </div>
