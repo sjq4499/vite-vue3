@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-03-03 10:16:24
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-07 20:48:06
+ * @LastEditTime: 2022-03-09 16:52:52
  */
 import { createRouter, createWebHashHistory } from "vue-router";
 
@@ -33,6 +33,11 @@ const routes = [
     path: "/xiaoyi",
     name: "xiaoyi",
     component: () => import("@/views/xiaoyi.vue"),
+  },
+  {
+    path: "/aisu",
+    name: "aisu",
+    component: () => import("@/views/aisu.vue"),
   },
 ];
 
