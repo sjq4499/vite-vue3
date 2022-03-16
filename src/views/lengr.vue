@@ -3,10 +3,10 @@
  * @Author: sjq
  * @Date: 2022-03-16 14:11:04
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-16 15:00:58
+ * @LastEditTime: 2022-03-16 16:08:27
 -->
 <template>
-  <div class="">
+  <div class="lengr_main">
     <el-button
       type="success"
       class="list"
@@ -47,6 +47,13 @@ export default defineComponent({
   },
   methods: {
     goPage(data) {
+      if (data.name === "lengr") {
+        this.$message({
+          message: "你已经在此页面了",
+          type: "error",
+        });
+        return;
+      }
       if (data.meta.password) {
         this.centerDialogVisible = true;
         this.routeDetail = data;
@@ -67,4 +74,11 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.lengr_main {
+  line-height: 50px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 5px;
+}
+</style>
