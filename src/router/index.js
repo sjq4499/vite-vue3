@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-03-03 10:16:24
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-16 14:31:31
+ * @LastEditTime: 2022-03-16 14:46:02
  */
 import { createRouter, createWebHashHistory } from "vue-router";
 
@@ -15,6 +15,7 @@ export const routes = [
     component: () => import("@/views/table.vue"),
     meta: {
       activeName: "表格",
+      password: "你不需要",
     },
   },
   {
@@ -47,6 +48,7 @@ export const routes = [
     component: () => import("@/views/xiaoyi.vue"),
     meta: {
       activeName: "小易",
+      password: "小易是猪",
     },
   },
   {
@@ -55,6 +57,7 @@ export const routes = [
     component: () => import("@/views/susu.vue"),
     meta: {
       activeName: "苏沐儿",
+      password: "苏苏是冷易的",
     },
   },
   {

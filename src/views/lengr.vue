@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-03-16 14:11:04
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-16 14:37:03
+ * @LastEditTime: 2022-03-16 15:00:58
 -->
 <template>
   <div class="">
@@ -16,6 +16,20 @@
     >
       {{ item.meta.activeName }}
     </el-button>
+    <el-dialog
+      v-model="centerDialogVisible"
+      title="请输入密码"
+      width="30%"
+      center
+    >
+      <el-input v-model="password" placeholder="请输入密码"> </el-input>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="centerDialogVisible = false">取消</el-button>
+          <el-button type="primary" @click="confirmFn">确定</el-button>
+        </span>
+      </template>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -26,11 +40,29 @@ export default defineComponent({
   setup() {
     return {
       routes: routes.filter((item) => item.meta && item.meta.activeName),
+      centerDialogVisible: ref(false),
+      password: ref(""),
+      routeDetail: reactive({}),
     };
   },
   methods: {
     goPage(data) {
-      this.$router.push(data.path);
+      if (data.meta.password) {
+        this.centerDialogVisible = true;
+        this.routeDetail = data;
+      } else {
+        this.$router.push(data.path);
+      }
+    },
+    confirmFn() {
+      if (this.routeDetail.meta.password === this.password) {
+        this.$router.push(this.routeDetail.path);
+      } else {
+        this.$message({
+          type: "error",
+          message: "密码不对哟",
+        });
+      }
     },
   },
 });
