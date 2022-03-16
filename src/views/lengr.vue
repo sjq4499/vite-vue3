@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-03-16 14:11:04
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-16 16:08:27
+ * @LastEditTime: 2022-03-16 16:26:29
 -->
 <template>
   <div class="lengr_main">
@@ -19,7 +19,7 @@
     <el-dialog
       v-model="centerDialogVisible"
       title="请输入密码"
-      width="30%"
+      width="300px"
       center
     >
       <el-input v-model="password" placeholder="请输入密码"> </el-input>
