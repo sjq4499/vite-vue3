@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-03-07 15:39:13
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-18 16:55:29
+ * @LastEditTime: 2022-03-18 16:58:25
 -->
 <template>
   <div class="container" id="scratch_card">
@@ -52,6 +52,14 @@ export default defineComponent({
         { url: "images/3.jpg", comment: "美女" },
         { url: "images/4.jpg", comment: "美女" },
         { url: "images/5.jpg", comment: "美女" },
+        { url: "images/6.jpg", comment: "美女" },
+        { url: "images/7.jpg", comment: "美女" },
+        { url: "images/8.jpg", comment: "美女" },
+        { url: "images/9.jpg", comment: "美女" },
+        { url: "images/10.jpg", comment: "美女" },
+        { url: "images/11.jpg", comment: "美女" },
+        { url: "images/12.jpg", comment: "美女" },
+        { url: "images/13.jpg", comment: "美女" },
         { url: "images/7.png", comment: "美女" },
         { url: "images/6.png", comment: "美女" },
         { url: "img/xiaoyi1.jpg", comment: "小易", time: 2000 },
