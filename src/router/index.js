@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-03-03 10:16:24
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-16 14:46:02
+ * @LastEditTime: 2022-03-18 10:00:22
  */
 import { createRouter, createWebHashHistory } from "vue-router";
 
@@ -16,6 +16,14 @@ export const routes = [
     meta: {
       activeName: "表格",
       password: "你不需要",
+    },
+  },
+  {
+    path: "/table2",
+    name: "table2",
+    component: () => import("@/views/table2.vue"),
+    meta: {
+      activeName: "表格2",
     },
   },
   {
