@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-03-07 15:39:13
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-18 20:30:26
+ * @LastEditTime: 2022-03-18 20:40:10
 -->
 <template>
   <div class="container" id="scratch_card">
@@ -85,7 +85,9 @@ export default defineComponent({
     this.initCanvas();
   },
   created() {
-    let index = parseInt(Math.random() * (this.imageList.length + 10));
+    let index = this.$route.query.index
+      ? this.$route.query.index
+      : parseInt(Math.random() * (this.imageList.length + 10));
     let url = this.imageList[index] || this.imageList[0];
     this.imgObj = url;
     this.imgObj.url = url.url ? getImageUrl(url.url) : null;
