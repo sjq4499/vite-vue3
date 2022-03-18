@@ -3,18 +3,16 @@
  * @Author: sjq
  * @Date: 2022-03-07 15:39:13
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-07 17:12:12
+ * @LastEditTime: 2022-03-18 14:56:44
 -->
 <template>
-  <div class="container" id="top">
+  <div class="container" id="scratch_card">
+    <div class="title" v-if="!isScratch">刮开有奖</div>
+    <div class="title" v-else>恭喜你获得{{ imgObj.comment }}一个</div>
     <div class="award_box">
       <div class="award" v-if="showPrize">
-        <div class="title">恭喜您获得</div>
-        <span>{{
-          Math.round(Math.random() * 5) == 3
-            ? "一亿元"
-            : Math.round(Math.random() * 10000000)
-        }}</span>
+        <img v-if="imgObj.url" :src="imgObj.url" alt="" />
+        <span class="comment" v-else>啥也没有，啥也不是</span>
       </div>
       <canvas
         id="c1"
@@ -25,35 +23,59 @@
         v-show="!isScratch"
       ></canvas>
     </div>
-    <div v-if="isScratch" class="bo">请找小易总监领取</div>
   </div>
 </template>
 <script>
-export default {
-  name: "scratchCard",
-  data() {
+import { defineComponent, ref, reactive } from "vue";
+import { getImageUrl } from "@/utils/index.js";
+
+export default defineComponent({
+  setup() {
     return {
-      c1: "", //画布
-      ctx: "", //画笔
-      ismousedown: false, //标志用户是否按下鼠标或开始触摸
-      fontem: "", // 获取html字体大小
-      isScratch: false, // 是否刮过卡
-      showPrize: false, // 显示奖品
+      c1: ref(""), //画布
+      ctx: ref(""), //画笔
+      ismousedown: ref(false), //标志用户是否按下鼠标或开始触摸
+      fontem: ref(""), // 获取html字体大小
+      isScratch: ref(false), // 是否刮过卡
+      showPrize: ref(false), // 显示奖品
+      getImageUrl,
+      imageList: ref([
+        { url: "images/1.gif", comment: "平底锅" },
+        { url: null, comment: "屁" },
+        { url: null, comment: "屁" },
+        { url: "images/3.gif", comment: "表情" },
+        { url: "images/1.jpg", comment: "美女" },
+        { url: "images/2.jpg", comment: "美女" },
+        { url: "images/3.jpg", comment: "美女" },
+        { url: "images/4.jpg", comment: "美女" },
+        { url: "images/5.jpg", comment: "美女" },
+        { url: "images/7.png", comment: "美女" },
+        { url: "images/6.png", comment: "美女" },
+      ]),
+      imgObj: reactive({ url: "", comment: "" }),
     };
   },
   mounted() {
     this.fontem = parseInt(
       window.getComputedStyle(document.documentElement, null)["font-size"]
     );
+    this.scratchCard = document.getElementById("scratch_card");
     //这是为了不同分辨率上配合@media自动调节刮的宽度
     this.c1 = document.getElementById("c1");
     //这里很关键，canvas自带两个属性width、height,我理解为画布的分辨率，跟style中的width、height意义不同。
     //最好设置成跟画布在页面中的实际大小一样
     //不然canvas中的坐标跟鼠标的坐标无法匹配
-    this.c1.width = this.c1.clientWidth + 15;
+    this.c1.width = this.c1.clientWidth;
     this.c1.height = this.c1.clientHeight;
     this.ctx = this.c1.getContext("2d");
     this.initCanvas();
+  },
+  created() {
+    let index = parseInt(Math.random() * (this.imageList.length + 10));
+    let url = this.imageList[index] || this.imageList[0];
+    this.imgObj.url = url.url ? getImageUrl(url.url) : null;
+    this.imgObj.comment = url.comment;
+    console.log(url, index);
   },
   methods: {
     // 画刮刮卡
@@ -65,7 +87,6 @@ export default {
       this.ctx.font = "Bold 24px Arial";
       this.ctx.textAlign = "center";
       this.ctx.fillStyle = "#a0a0a0";
-      this.ctx.fillText("刮开有奖", this.c1.width / 2, 55);
       //有些老的手机自带浏览器不支持destination-out,下面的代码中有修复的方法
       this.ctx.globalCompositeOperation = "destination-out";
     },
@@ -96,7 +117,7 @@ export default {
         if (e.changedTouches) {
           e = e.changedTouches[e.changedTouches.length - 1];
         }
-        var topY = document.getElementById("top").offsetTop;
+        var topY = document.getElementById("scratch_card").offsetTop;
         var oX = this.c1.offsetLeft,
           oY = this.c1.offsetTop + topY;
         var x = (e.clientX + document.body.scrollLeft || e.pageX) - oX || 0,
@@ -114,70 +135,44 @@ export default {
       }
     },
   },
-};
+});
 </script>
 <style lang="scss" scoped>
 .container {
   width: 100%;
   height: 100%;
-  background-color: #985113;
+  background-color: #fff;
   padding: 100px 0;
+  .title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+  }
   .award_box {
-    width: 95%;
-    height: 360px;
-    margin: 0px auto;
-    padding-top: 70px;
+    height: 500px;
     .award {
-      width: 85%;
-      height: 180px;
+      width: 100%;
+      height: 280px;
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-      width: 68%;
-      .title {
-        color: rgba(3, 45, 97, 1);
-        font-size: 32px;
-        font-weight: 800;
-        line-height: 50px;
-        margin-top: 50px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        span {
-          color: #cc162d;
-          text-align: center;
-        }
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img {
+        width: 100%;
+        height: 100%;
       }
-    }
-    .surface {
-      position: absolute;
-      z-index: 98;
-      width: 95%;
-      height: 160px;
-      margin: 150px auto;
-      padding-top: 70px;
+      .comment {
+        font-size: 14px;
+      }
     }
     .canvas {
       position: relative;
+      width: 100%;
+      height: 280px;
     }
-  }
-  .map_box {
-    margin-top: 200px;
-    width: 100%;
-    height: 500px;
-    padding: 10px;
-    bottom: 5px solid orange;
-    box-sizing: border-box;
-  }
-  .bo {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    text-align: center;
-    color: #f55;
   }
 }
 </style>

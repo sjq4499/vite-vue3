@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2021-12-07 15:58:15
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-03 09:53:24
+ * @LastEditTime: 2022-03-18 14:22:27
  */
 export function fileToBase64(file, callback) {
   const fileReader = new FileReader();
@@ -74,3 +74,9 @@ export function formDate(value, type) {
     return Y + "-" + m + "-" + d + " " + H + ":" + i + ":" + s;
   }
 }
+
+// 获取本地文件路径
+// name  文件名
+export const getImageUrl = (name) => {
+  return new URL(`../assets/${name}`, import.meta.url).href;
+};
