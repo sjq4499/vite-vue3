@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-03-07 15:39:13
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-18 14:56:44
+ * @LastEditTime: 2022-03-18 16:37:55
 -->
 <template>
   <div class="container" id="scratch_card">
@@ -51,6 +51,8 @@ export default defineComponent({
         { url: "images/5.jpg", comment: "美女" },
         { url: "images/7.png", comment: "美女" },
         { url: "images/6.png", comment: "美女" },
+        { url: "img/xiaoyi1.jpg", comment: "小易", time: 2000 },
+        { url: "img/susu.jpg", comment: "苏苏", time: 2000 },
       ]),
       imgObj: reactive({ url: "", comment: "" }),
     };
@@ -132,6 +134,22 @@ export default defineComponent({
         // this.c1.offsetHeight;
         // this.c1.style.display = 'inherit';
         this.ctx.fill();
+      }
+    },
+  },
+  watch: {
+    isScratch() {
+      if (this.isScratch) {
+        if (this.imgObj.time) {
+          setTimeout(() => {
+            this.imgObj = this.imageList[0];
+            this.imgObj.url = getImageUrl(this.imgObj.url);
+            this.$message({
+              type: "success",
+              message: "别瞅了，没了",
+            });
+          }, this.imgObj.time);
+        }
       }
     },
   },
