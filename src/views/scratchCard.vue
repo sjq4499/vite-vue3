@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-03-07 15:39:13
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-18 16:58:25
+ * @LastEditTime: 2022-03-18 17:30:24
 -->
 <template>
   <div class="container" id="scratch_card">
@@ -62,8 +62,8 @@ export default defineComponent({
         { url: "images/13.jpg", comment: "美女" },
         { url: "images/7.png", comment: "美女" },
         { url: "images/6.png", comment: "美女" },
-        { url: "img/xiaoyi1.jpg", comment: "小易", time: 2000 },
-        { url: "img/susu.jpg", comment: "苏苏", time: 2000 },
+        { url: "img/xiaoyi1.jpg", comment: "小易", time: 500 },
+        { url: "img/susu.jpg", comment: "苏苏", time: 500 },
       ]),
       imgObj: reactive({ url: "", comment: "" }),
     };
