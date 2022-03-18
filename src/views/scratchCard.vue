@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-03-07 15:39:13
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-18 17:30:24
+ * @LastEditTime: 2022-03-18 20:30:26
 -->
 <template>
   <div class="container" id="scratch_card">
@@ -60,6 +60,7 @@ export default defineComponent({
         { url: "images/11.jpg", comment: "美女" },
         { url: "images/12.jpg", comment: "美女" },
         { url: "images/13.jpg", comment: "美女" },
+        { url: "images/14.jpg", comment: "美女" },
         { url: "images/7.png", comment: "美女" },
         { url: "images/6.png", comment: "美女" },
         { url: "img/xiaoyi1.jpg", comment: "小易", time: 500 },
@@ -86,8 +87,8 @@ export default defineComponent({
   created() {
     let index = parseInt(Math.random() * (this.imageList.length + 10));
     let url = this.imageList[index] || this.imageList[0];
+    this.imgObj = url;
     this.imgObj.url = url.url ? getImageUrl(url.url) : null;
-    this.imgObj.comment = url.comment;
     console.log(url, index);
   },
   methods: {
@@ -155,6 +156,7 @@ export default defineComponent({
           setTimeout(() => {
             this.imgObj = this.imageList[0];
             this.imgObj.url = getImageUrl(this.imgObj.url);
+            this.isScratch = false;
             this.$message({
               type: "success",
               message: "别瞅了，没了",
