@@ -3,12 +3,15 @@
  * @Author: sjq
  * @Date: 2022-03-07 15:39:13
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-18 16:37:55
+ * @LastEditTime: 2022-03-18 16:55:29
 -->
 <template>
   <div class="container" id="scratch_card">
     <div class="title" v-if="!isScratch">刮开有奖</div>
-    <div class="title" v-else>恭喜你获得{{ imgObj.comment }}一个</div>
+    <div class="title" v-else>
+      恭喜你获得<span class="color-red"> {{ imgObj.comment }}</span
+      >一个
+    </div>
     <div class="award_box">
       <div class="award" v-if="showPrize">
         <img v-if="imgObj.url" :src="imgObj.url" alt="" />
