@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-03-07 15:39:13
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-18 20:40:10
+ * @LastEditTime: 2022-03-19 14:48:38
 -->
 <template>
   <div class="container" id="scratch_card">
@@ -14,7 +14,7 @@
     </div>
     <div class="award_box">
       <div class="award" v-if="showPrize">
-        <img v-if="imgObj.url" :src="imgObj.url" alt="" />
+        <img :class="{auto_img:isScratch}" v-if="imgObj.url" :src="imgObj.url" alt="" />
         <span class="comment" v-else>啥也没有，啥也不是</span>
       </div>
       <canvas
@@ -61,6 +61,14 @@ export default defineComponent({
         { url: "images/12.jpg", comment: "美女" },
         { url: "images/13.jpg", comment: "美女" },
         { url: "images/14.jpg", comment: "美女" },
+        { url: "images/15.jpg", comment: "檀葭老婆", time: 2000 },
+        { url: "images/16.jpg", comment: "檀葭老婆", time: 2000 },
+        { url: "images/17.jpg", comment: "美女" },
+        { url: "images/18.jpg", comment: "美女" },
+        { url: "images/19.jpg", comment: "小七姐姐", time: 2000 },
+        { url: "images/20.jpg", comment: "小哥哥" },
+        { url: "images/21.jpg", comment: "小哥哥" },
+        { url: "images/22.jpg", comment: "美女" },
         { url: "images/7.png", comment: "美女" },
         { url: "images/6.png", comment: "美女" },
         { url: "img/xiaoyi1.jpg", comment: "小易", time: 500 },
@@ -196,6 +204,9 @@ export default defineComponent({
       img {
         width: 100%;
         height: 100%;
+      }
+      .auto_img {
+        width: auto;
       }
       .comment {
         font-size: 14px;
