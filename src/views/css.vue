@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-03-30 10:09:58
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-30 14:30:14
+ * @LastEditTime: 2022-03-30 16:33:55
 -->
 <template>
   <div class="main">
@@ -33,9 +33,11 @@ export default defineComponent({
   width: 200px;
   height: 130px;
   text-align: center;
+  display: inline-grid;
 }
 .boder_image {
   border: solid 4px;
+  // 渐变
   border-image: linear-gradient(
       135deg,
       rgba(183, 40, 255, 1),
@@ -44,10 +46,11 @@ export default defineComponent({
     2 2;
 }
 .boder_radius {
+  // 圆角
   border: solid 4px;
   border-radius: 10px;
 }
-
+// 方法1
 .gradient_radius1 {
   &.out {
     border-radius: 10px;
@@ -65,6 +68,7 @@ export default defineComponent({
     border-radius: 10px;
   }
 }
+// 方法2
 .gradient_radius2 {
   position: relative;
   border-radius: 10px;
@@ -87,6 +91,7 @@ export default defineComponent({
       1;
   }
 }
+// 方法3
 .gradient_radius3 {
   position: relative;
   border: 4px solid;
@@ -97,7 +102,9 @@ export default defineComponent({
     )
     1;
   clip-path: inset(0 round 10px);
+  // inset() : 定义一个矩形 ；inset()可以传入5个参数，分别对应top,right,bottom,left的裁剪位置,round radius（可选，圆角）
 }
+// 方法4
 .gradient_radius4 {
   border: solid 4px transparent;
   border-radius: 10px;
