@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-03-03 10:16:24
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-22 10:27:58
+ * @LastEditTime: 2022-03-30 10:10:19
  */
 import { createRouter, createWebHashHistory } from "vue-router";
 
@@ -82,6 +82,14 @@ export const routes = [
     component: () => import("@/views/vue3.vue"),
     meta: {
       activeName: "vue3",
+    },
+  },
+  {
+    path: "/css",
+    name: "css",
+    component: () => import("@/views/css.vue"),
+    meta: {
+      activeName: "多彩多姿css",
     },
   },
 ];
