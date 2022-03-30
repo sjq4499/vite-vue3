@@ -3,12 +3,12 @@
  * @Author: sjq
  * @Date: 2022-03-03 10:16:24
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-18 10:00:22
+ * @LastEditTime: 2022-03-22 10:27:58
  */
 import { createRouter, createWebHashHistory } from "vue-router";
 
 export const routes = [
-  { path: "/", redirect: "/upload" },
+  { path: "/", redirect: "/lengr" },
   {
     path: "/table",
     name: "table",
@@ -74,6 +74,14 @@ export const routes = [
     component: () => import("@/views/lengr.vue"),
     meta: {
       activeName: "冷r",
+    },
+  },
+  {
+    path: "/vue3",
+    name: "vue3",
+    component: () => import("@/views/vue3.vue"),
+    meta: {
+      activeName: "vue3",
     },
   },
 ];
