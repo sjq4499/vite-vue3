@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-03-30 10:09:58
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-30 16:33:55
+ * @LastEditTime: 2022-03-31 14:01:53
 -->
 <template>
   <div class="main">
@@ -20,12 +20,11 @@
     </div>
   </div>
 </template>
+
 <script>
-import { defineComponent, ref, reactive } from "vue";
+import { defineComponent } from "vue";
 export default defineComponent({
-  setup() {
-    return;
-  },
+  name: "GradientRadius",
 });
 </script>
 <style lang="scss" scoped>
