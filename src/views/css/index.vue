@@ -3,11 +3,20 @@
  * @Author: sjq
  * @Date: 2022-03-31 09:29:10
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-31 16:18:57
+ * @LastEditTime: 2022-04-01 15:00:03
 -->
 <template>
-  <div class="">
-    <component :is="'GradientRadius'"></component>
+  <div class="main">
+    <el-button
+      type="success"
+      class="list"
+      v-for="item in res_components"
+      :key="item.name"
+      @click="handleClick(item)"
+    >
+      {{ item.name }}
+    </el-button>
+    <component :is="activeName"></component>
   </div>
 </template>
 <script>
@@ -30,7 +39,13 @@ export default defineComponent({
   components: { ...res_components },
   name: "css",
   setup() {
-    return;
+    let activeName = ref("");
+    return { res_components, activeName };
+  },
+  methods: {
+    handleClick(data) {
+      this.activeName = data.name;
+    },
   },
 });
 </script>
