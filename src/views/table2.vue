@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-02-23 10:31:38
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-18 10:14:26
+ * @LastEditTime: 2022-04-13 11:00:28
 -->
 <template>
   <div class="main">
@@ -32,7 +32,14 @@
       列表 <el-button type="primary" @click="exportFun">导出 </el-button>
       <el-button type="primary" @click="clearFun"> 清空数据</el-button>
     </h3>
-    <el-table border :data="data" style="width: 100%" :key="tableHeader">
+    <el-table
+      border
+      :data="data"
+      style="width: 100%"
+      :key="tableHeader"
+      ref="dragTable"
+      row-key="data"
+    >
       <el-table-column
         :prop="value"
         :label="key"
@@ -49,15 +56,41 @@
 </template>
 <script>
 import { formDate } from "@/utils/index.js";
-import { defineComponent, ref, reactive } from "vue";
+import { defineComponent, ref, reactive, onMounted } from "vue";
 import {
   getlocalStorage,
   setlocalStorage,
   removelocalStorage,
 } from "@/utils/localStorage";
+import Sortable from "sortablejs";
 
 export default defineComponent({
   setup() {
+    const dragTable = ref(null);
+    const data = ref([]);
+    const setSort = () => {
+      if (!dragTable.value) return;
+      const el = dragTable.value.$el.querySelectorAll("tbody")[0];
+      Sortable.create(el, {
+        ghostClass: "sortable-ghost", // Class name for the drop placeholder,
+        setData: function (dataTransfer) {
+          // to avoid Firefox bug
+          // Detail see : https://github.com/RubaXa/Sortable/issues/1012
+          dataTransfer.setData("Text", "");
+        },
+        onEnd: (evt) => {
+          const targetRow = data.value.splice(evt.oldIndex, 1)[0];
+          data.value.splice(evt.newIndex, 0, targetRow);
+
+          // for show the changes, you can delete in you code
+          // const tempIndex = this.newList.splice(evt.oldIndex, 1)[0]
+          // this.newList.splice(evt.newIndex, 0, tempIndex)
+        },
+      });
+    };
+    onMounted(() => {
+      setSort();
+    });
     return {
       value1: ref(
         "2022.1.19。汪桔 。18988429684。 云南省。昆明市。官渡区。大板桥街道。小哨村。云南是事实上是"
@@ -65,7 +98,7 @@ export default defineComponent({
       value: ref(
         "日期：2022.1.19 \n姓名：汪桔 \n手机号：18988429684\n省： 云南省\n市：昆明市\n区：官渡区\n详细地址：大板桥街道小哨村云南是事实上是\n"
       ),
-      data: ref([]),
+      data,
       dataProp: reactive({
         日期: "data",
         姓名: "name",
@@ -76,6 +109,7 @@ export default defineComponent({
         详细地址: "nickname3",
       }),
       tableHeader: ref(0),
+      dragTable,
     };
   },
   created() {
@@ -119,6 +153,9 @@ export default defineComponent({
       this.data.push(obj);
       setlocalStorage("tableData", JSON.stringify(this.data));
       console.log(this.data);
+      this.$nextTick(() => {
+        this.setSort();
+      });
     },
     // 导出
     exportFun() {
@@ -143,6 +180,9 @@ export default defineComponent({
       let index = data.$index;
       this.data.splice(index, 1);
       setlocalStorage("tableData", JSON.stringify(this.data));
+      this.$nextTick(() => {
+        this.setSort();
+      });
     },
     // 清空
     clearFun() {
