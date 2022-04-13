@@ -3,27 +3,44 @@
  * @Author: sjq
  * @Date: 2022-04-02 09:52:03
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-13 16:26:44
+ * @LastEditTime: 2022-04-13 18:11:25
 -->
 <template>
   <div class="main">
-    <div class="box center1">
-      <div class="box_content center1_content">flex</div>
+    <h1>时间戳转换</h1>
+    <div class="list">
+      <div class="item">
+        <span class="lable">现在</span>
+        <span class="value">
+          {{ nowTime }}
+        </span>
+      </div>
+      <div class="item">
+        <span class="lable">控制</span>
+        <span class="value">
+          {{ nowTime }}
+        </span>
+      </div>
     </div>
-    <div class="box center5">
-      <div class="box_content center5_content">flex2</div>
+    <div class="list">
+      <div class="item center">时间戳</div>
+      <div class="item center"></div>
+      <div class="item center">时间</div>
     </div>
-    <div class="box center2">
-      <div class="box_content center2_content">translate</div>
-    </div>
-    <div class="box center3">
-      <div class="box_content center3_content">grid</div>
-    </div>
-    <div class="box center4">
-      <div class="box_content center4_content">grid2</div>
-    </div>
-    <div class="box center6">
-      <div class="box_content center6_content">margin + vertical-align</div>
+    <div class="list">
+      <div class="item">
+        <el-input v-model="time" placeholder=""></el-input>
+      </div>
+      <div class="item center">
+        <el-button type="primary">《转换》</el-button>
+      </div>
+      <div class="item center">
+        <el-date-picker
+          v-model="time"
+          type="datetime"
+          placeholder="Select date and time"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -32,72 +49,33 @@ import { defineComponent, ref, reactive } from "vue";
 export default defineComponent({
   name: "Timestamp",
   setup() {
-    return;
+    const nowTime = ref(new Date() * 1);
+    const time = ref(new Date() * 1);
+    const dateTime = ref(new Date() * 1);
+
+    return {
+      nowTime,
+      time,
+      dateTime,
+    };
   },
 });
 </script>
 <style lang="scss" scoped>
-.box {
-  width: 200px;
-  height: 130px;
-  border-radius: 10px;
-  border: 1px solid #979797;
-  font-size: 18px;
-  .box_content {
-    background: #56d6a5;
-  }
-}
-// flex
-// IE9-浏览器不支持
-// 在伸缩容器上使用主轴对齐justify-content和侧轴对齐align-items
-.center1 {
+.flexbox {
   display: flex;
-  justify-content: center;
-  align-items: center;
 }
-// 在伸缩项目上使用margin:auto
-.center5 {
+.center {
+  text-align: center;
+}
+.list {
+  margin: 24px 0;
   display: flex;
-  .center5_content {
-    margin: auto;
-  }
-}
-// 相对绝对定位
-// IE9-浏览器不支持
-.center2 {
-  position: relative;
-  .center2_content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-}
-// grid
-// IE10-浏览器不支持
-// 在网格容器上设置justify-items、align-items或justify-content、align-content
-.center3 {
-  display: grid;
-  align-items: center;
-  justify-items: center;
-  // align-content: center;
-  // justify-content: center;
-}
-// 在网格项目中设置justify-self、align-self或者margin: auto
-.center4 {
-  display: grid;
-  .center4_content {
-    align-self: center;
-    justify-self: center;
-  }
-}
-
-.center6 {
-  display: table-cell;
-  vertical-align: middle;
-  .center6_content {
-    display: table;
-    margin: 0 auto;
+  .item {
+    flex: 1;
+    .lable {
+      margin-right: 20px;
+    }
   }
 }
 </style>
