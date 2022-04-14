@@ -3,9 +3,10 @@
  * @Author: sjq
  * @Date: 2022-04-14 14:06:14
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-14 15:14:25
+ * @LastEditTime: 2022-04-14 15:21:48
 -->
 <template>
+  <h1>生成二维码</h1>
   <div>内容： <el-input v-model="value" placeholder=""></el-input></div>
   <div class="qrcode">
     <canvas id="canvas"></canvas>
@@ -19,7 +20,7 @@ export default defineComponent({
   name: "Qrcode",
   setup() {
     const qrcodeUrl = ref("200");
-    const value = ref("内容");
+    const value = ref("二维码内容");
     const qrOptions = reactive({
       // errorCorrectionLevel: "H", //纠错级别 L, M, Q, H
       // type: "image/jpeg",//数据 URI 格式。可能的值为：image/png, image/jpeg, image/webp。

@@ -3,10 +3,10 @@
  * @Author: sjq
  * @Date: 2022-04-02 09:52:03
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-14 10:27:48
+ * @LastEditTime: 2022-04-14 15:22:42
 -->
 <template>
-  <div class="main">
+  <div class="">
     <h1>时间戳转换</h1>
     <div class="list">
       <div class="item">
