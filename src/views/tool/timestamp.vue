@@ -3,60 +3,98 @@
  * @Author: sjq
  * @Date: 2022-04-02 09:52:03
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-13 18:11:25
+ * @LastEditTime: 2022-04-14 10:13:36
 -->
 <template>
   <div class="main">
     <h1>时间戳转换</h1>
     <div class="list">
       <div class="item">
-        <span class="lable">现在</span>
-        <span class="value">
+        <span class="lable">现在：</span>
+        <span class="value color_red">
           {{ nowTime }}
         </span>
       </div>
       <div class="item">
-        <span class="lable">控制</span>
+        <span class="lable">控制：</span>
         <span class="value">
-          {{ nowTime }}
+          <el-switch
+            v-model="isTimeChange"
+            inline-prompt
+            active-text="停"
+            inactive-text="开"
+          />
         </span>
       </div>
     </div>
-    <div class="list">
-      <div class="item center">时间戳</div>
-      <div class="item center"></div>
-      <div class="item center">时间</div>
-    </div>
-    <div class="list">
-      <div class="item">
-        <el-input v-model="time" placeholder=""></el-input>
+    <div class="time_box">
+      <div class="list">
+        <div class="item center">时间戳(ms)</div>
+        <div class="item center"></div>
+        <div class="item center">时间</div>
       </div>
-      <div class="item center">
-        <el-button type="primary">《转换》</el-button>
-      </div>
-      <div class="item center">
-        <el-date-picker
-          v-model="time"
-          type="datetime"
-          placeholder="Select date and time"
-        />
+      <div class="list">
+        <div class="item center">
+          <el-input
+            v-model="time"
+            placeholder=""
+            style="width: 200px"
+          ></el-input>
+        </div>
+        <div class="item center">
+          <el-button type="primary">《转换》</el-button>
+        </div>
+        <div class="item center">
+          <el-date-picker
+            v-model="time"
+            type="datetime"
+            placeholder="Select date and time"
+          />
+        </div>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { defineComponent, ref, reactive } from "vue";
+import {
+  defineComponent,
+  ref,
+  reactive,
+  onMounted,
+  watch,
+  onUnmounted,
+} from "vue";
 export default defineComponent({
   name: "Timestamp",
   setup() {
     const nowTime = ref(new Date() * 1);
     const time = ref(new Date() * 1);
     const dateTime = ref(new Date() * 1);
-
+    const isTimeChange = ref(true);
+    const timeChange = ref(null);
+    onMounted(() => {
+      changeTime();
+    });
+    onUnmounted(() => {
+      clearInterval(timeChange.value);
+    });
+    const changeTime = () => {
+      if (!isTimeChange.value) {
+        clearInterval(timeChange.value);
+      } else {
+        timeChange.value = setInterval(() => {
+          nowTime.value = new Date() * 1;
+        }, 500);
+      }
+    };
+    watch(isTimeChange, (newValue, oldValue) => {
+      changeTime();
+    });
     return {
       nowTime,
       time,
       dateTime,
+      isTimeChange,
     };
   },
 });
@@ -68,6 +106,12 @@ export default defineComponent({
 .center {
   text-align: center;
 }
+.color_red {
+  color: #f55;
+  font-size: 16px;
+  min-width: 760px;
+  border-radius: 10px;
+}
 .list {
   margin: 24px 0;
   display: flex;
@@ -77,5 +121,8 @@ export default defineComponent({
       margin-right: 20px;
     }
   }
+}
+.time_box {
+  border: 1px solid #ccc;
 }
 </style>
