@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-04-02 09:52:03
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-14 15:22:42
+ * @LastEditTime: 2022-04-14 16:58:53
 -->
 <template>
   <div class="">
@@ -46,7 +46,7 @@
         </div>
         <div class="item center">
           <el-date-picker
-            v-model="time"
+            v-model="dateTime"
             type="datetime"
             placeholder="Select date and time"
           />
@@ -64,6 +64,7 @@ import {
   watch,
   onUnmounted,
 } from "vue";
+
 export default defineComponent({
   name: "Timestamp",
   setup() {

@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-04-14 14:06:14
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-14 15:21:48
+ * @LastEditTime: 2022-04-14 17:01:37
 -->
 <template>
   <h1>生成二维码</h1>
@@ -11,10 +11,12 @@
   <div class="qrcode">
     <canvas id="canvas"></canvas>
   </div>
+  <el-button type="primary" @click="saveQrcode">保存图片</el-button>
 </template>
 <script>
 import { defineComponent, ref, reactive, onMounted, watchEffect } from "vue";
 import Qrcode from "qrcode";
+import domtoimage from "dom-to-image";
 
 export default defineComponent({
   name: "Qrcode",
@@ -39,6 +41,15 @@ export default defineComponent({
         if (error) console.error(error);
       });
     };
+    const saveQrcode = () => {
+      domtoimage.toPng(document.querySelector("#canvas")).then((imgurl) => {
+        var a = document.createElement("a"); // 创建一个a节点插入的document
+        var event = new MouseEvent("click"); // 模拟鼠标click点击事件
+        a.download = new Date() * 1; // 设置a节点的download属性值
+        a.href = imgurl; // 将图片的src赋值给a节点的href
+        a.dispatchEvent(event); // 触发鼠标点击事件
+      });
+    };
     onMounted(() => {
       qrCode();
     });
@@ -50,6 +61,7 @@ export default defineComponent({
       qrcodeUrl,
       value,
       qrCode,
+      saveQrcode,
     };
   },
 });
