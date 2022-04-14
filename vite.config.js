@@ -3,13 +3,16 @@
  * @Author: sjq
  * @Date: 2021-12-07 13:55:53
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-18 13:58:19
+ * @LastEditTime: 2022-04-14 09:42:36
  */
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
-import { ElementPlusResolver } from "unplugin-vue-components/resolvers";
+import {
+  ElementPlusResolver,
+  NaiveUiResolver,
+} from "unplugin-vue-components/resolvers";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -20,7 +23,7 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
     }),
     Components({
-      resolvers: [ElementPlusResolver()],
+      resolvers: [ElementPlusResolver(), NaiveUiResolver()],
     }),
   ],
   alias: {
