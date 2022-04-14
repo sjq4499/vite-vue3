@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2021-12-07 15:58:15
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-18 14:22:27
+ * @LastEditTime: 2022-04-14 10:50:49
  */
 export function fileToBase64(file, callback) {
   const fileReader = new FileReader();
@@ -79,4 +79,17 @@ export function formDate(value, type) {
 // name  文件名
 export const getImageUrl = (name) => {
   return new URL(`../assets/${name}`, import.meta.url).href;
+};
+
+// 获取文件下所有的组件
+export const getallComponents = (allComponents) => {
+  let res_components = {};
+  Object.keys(allComponents).forEach((item) => {
+    let fileName = item.replace(/^\.+[\/\w+]*\/(.*)\.\w+$/, "$1");
+    let comp = allComponents[item];
+    if (fileName === "index") return;
+    let name = comp.default.name;
+    res_components[name] = comp.default;
+  });
+  return res_components;
 };

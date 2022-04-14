@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-03-31 09:29:10
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-13 17:33:12
+ * @LastEditTime: 2022-04-14 10:47:36
 -->
 <template>
   <div class="main">
@@ -20,30 +20,23 @@
   </div>
 </template>
 <script>
-import { defineComponent, ref, reactive } from "vue";
+import { defineComponent, ref, reactive, onMounted } from "vue";
+import { getallComponents } from "@/utils/index";
 
-const allComponents = import.meta.globEager("../tool/*.vue");
-let res_components = {};
-
-Object.keys(allComponents).forEach((item) => {
-  let fileName = item.replace(/^\.+[\/\w+]*\/(.*)\.\w+$/, "$1");
-  let comp = allComponents[item];
-  if (fileName === "index") return;
-  let name = comp.default.name;
-  res_components[name] = comp.default;
-});
+let res_components = getallComponents(import.meta.globEager("../tool/*.vue"));
 
 export default defineComponent({
   components: { ...res_components },
-  name: "css",
+  name: "Tool",
   setup() {
     let activeName = ref("");
-    return { res_components, activeName };
-  },
-  methods: {
-    handleClick(data) {
-      this.activeName = data.name;
-    },
+    onMounted(() => {
+      activeName.value = res_components[Object.keys(res_components)[0]].name;
+    });
+    let handleClick = (data) => {
+      activeName.value = data.name;
+    };
+    return { res_components, activeName, handleClick };
   },
 });
 </script>
