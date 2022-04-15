@@ -3,8 +3,9 @@
  * @Author: sjq
  * @Date: 2021-12-07 15:58:15
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-14 10:50:49
+ * @LastEditTime: 2022-04-15 09:24:34
  */
+// 文件转base64
 export function fileToBase64(file, callback) {
   const fileReader = new FileReader();
   fileReader.readAsDataURL(file);
@@ -24,11 +25,12 @@ export function getImageDimensions(url) {
     img.src = url;
   });
 }
-
+// 补0
 const addZero = function (val) {
   if (val < 10) return "0" + val;
   else return val;
 };
+// 时间格式化
 export function formDate(value, type) {
   let date = "";
   if (!value) return "";

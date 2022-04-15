@@ -3,11 +3,14 @@
  * @Author: sjq
  * @Date: 2021-12-07 13:55:53
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-14 09:43:25
+ * @LastEditTime: 2022-04-15 10:06:01
 -->
 
 <template>
-  <router-view></router-view>
+  <n-config-provider :locale="zhCN" :date-locale="dateZhCN">
+    <router-view></router-view>
+  </n-config-provider>
+
   <n-watermark
     content="冷r"
     cross
@@ -21,7 +24,19 @@
     :rotate="-15"
   />
 </template>
-<script setup></script>
+<script>
+import { defineComponent } from "vue";
+import { zhCN, dateZhCN } from "naive-ui";
+
+export default defineComponent({
+  setup() {
+    return {
+      zhCN,
+      dateZhCN,
+    };
+  },
+});
+</script>
 
 <style>
 * {

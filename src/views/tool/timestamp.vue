@@ -3,21 +3,33 @@
  * @Author: sjq
  * @Date: 2022-04-02 09:52:03
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-14 16:58:53
+ * @LastEditTime: 2022-04-15 10:06:59
 -->
 <template>
   <div class="">
     <h1>时间戳转换</h1>
     <div class="list">
       <div class="item">
-        <span class="lable">现在：</span>
+        <span class="lable">北京时间：</span>
         <span class="value color_red">
-          {{ nowTime }}
+          {{
+            formDate(
+              new Date(
+                new Date().getTime() +
+                  (parseInt(new Date().getTimezoneOffset() / 60) + 8) *
+                    3600 *
+                    1000
+              )
+            )
+          }}
         </span>
       </div>
+    </div>
+    <div class="list">
       <div class="item">
-        <span class="lable">控制：</span>
-        <span class="value">
+        <span class="lable">时间戳(ms)：</span>
+        <span class="value color_red">
+          {{ nowTime }}
           <el-switch
             v-model="isTimeChange"
             inline-prompt
@@ -29,27 +41,41 @@
     </div>
     <div class="time_box">
       <div class="list">
-        <div class="item center">时间戳(ms)</div>
-        <div class="item center"></div>
+        <div class="item center">
+          <div class="lable">时间戳(ms)</div>
+        </div>
+        <div class="item center">转换</div>
         <div class="item center">时间</div>
       </div>
+
       <div class="list">
         <div class="item center">
-          <el-input
-            v-model="time"
-            placeholder=""
-            style="width: 200px"
-          ></el-input>
+          <div class="value">
+            <el-input
+              v-model="time"
+              placeholder=""
+              type="number"
+              style="min-width: 100px"
+            ></el-input>
+          </div>
         </div>
         <div class="item center">
-          <el-button type="primary">《==转换==》</el-button>
+          <el-button type="primary">
+            <el-icon><Switch /></el-icon>
+          </el-button>
         </div>
         <div class="item center">
-          <el-date-picker
+          <n-date-picker
+            v-model:value="time"
+            type="datetime"
+            clearable
+            style="min-width: 100px"
+          />
+          <!-- <el-date-picker
             v-model="dateTime"
             type="datetime"
             placeholder="Select date and time"
-          />
+          /> -->
         </div>
       </div>
     </div>
@@ -64,9 +90,14 @@ import {
   watch,
   onUnmounted,
 } from "vue";
+import { formDate } from "@/utils/index";
+import { Switch } from "@element-plus/icons-vue";
 
 export default defineComponent({
   name: "Timestamp",
+  components: {
+    Switch,
+  },
   setup() {
     const nowTime = ref(new Date() * 1);
     const time = ref(new Date() * 1);
@@ -96,6 +127,7 @@ export default defineComponent({
       time,
       dateTime,
       isTimeChange,
+      formDate,
     };
   },
 });
@@ -125,5 +157,6 @@ export default defineComponent({
 }
 .time_box {
   border: 1px solid #ccc;
+  padding: 0 10px;
 }
 </style>
