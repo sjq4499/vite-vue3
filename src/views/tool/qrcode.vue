@@ -3,13 +3,29 @@
  * @Author: sjq
  * @Date: 2022-04-14 14:06:14
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-15 17:10:45
+ * @LastEditTime: 2022-04-15 18:10:17
 -->
 <template>
   <h1>生成二维码</h1>
   <div>内容： <el-input v-model="value" placeholder=""></el-input></div>
-  <img :src="imgUrl" id="img" alt="" />
+  <div class="qrcode">
+    <img :src="imgUrl" id="img" alt="" />
+  </div>
   <el-button type="primary" @click="saveQrcode('#img')">保存图片</el-button>
+  <el-form>
+    <el-form-item
+      v-for="(key, index) in optionskeys"
+      :key="index"
+      :label="mapOptions[key]"
+    >
+      <el-color-picker
+        v-if="/color/i.test(key)"
+        v-model="qrOptions[key]"
+        show-alpha
+      ></el-color-picker>
+      <el-input v-else v-model.number="qrOptions[key]" />
+    </el-form-item>
+  </el-form>
 </template>
 <script>
 import { defineComponent, ref, reactive, onMounted, watchEffect } from "vue";
@@ -28,25 +44,45 @@ export default defineComponent({
       gifBackground: null,
       text: null,
       size: 200, // 尺寸, 长宽一致, 包含外边距
-      margin: null, // 二维码图像的外边距, 默认 20px
-      colorDark: null, //实点的颜色
-      colorLight: null, //空白区的颜色
-      backgroundColor: null, //背景色
+      margin: 20, // 二维码图像的外边距, 默认 20px
+      colorDark: "#000", //实点的颜色
+      colorLight: "#fff", //空白区的颜色
+      backgroundColor: "#fff", //背景色
       backgroundImage: null, //背景图
       backgroundDimming: null, //叠加在背景图上的颜色, 在解码有难度的时有一定帮助
       logoImage: null, //logo图
-      logoScale: null, //用于计算 LOGO 大小的值, 过大将导致解码失败, LOGO 尺寸计算公式 logoScale*(size-2*margin), 默认 0.2
-      logoBackgroundColor: null, //背景色,需要设置 logo margin
-      correctLevel: null, //容错级别 0-3
-      logoMargin: null,
-      logoCornerRadius: null, //LOGO 标识及其边框的圆角半径, 默认为0
+      logoScale: 0.2, //用于计算 LOGO 大小的值, 过大将导致解码失败, LOGO 尺寸计算公式 logoScale*(size-2*margin), 默认 0.2
+      logoBackgroundColor: "#fff", //背景色,需要设置 logo margin
+      correctLevel: 0, //容错级别 0-3
+      logoMargin: null, //LOGO 标识周围的空白边框, 默认为0
+      logoCornerRadius: 0, //LOGO 标识及其边框的圆角半径, 默认为0
       whiteMargin: null, //boolean 若设为 true, 背景图外将绘制白色边框
-      dotScale: null, //数据区域点缩小比例,默认为1
-      autoColor: null, //boolean 若为 true, 背景图的主要颜色将作为实点的颜色, 即 colorDark,默认 true
-      binarize: null, //boolean 若为 true, 图像将被二值化处理, 未指定阈值则使用默认值
-      binarizeThreshold: null, //阈值用于对整个图像进行二值化。 默认是128。 阈值(0 < < 255)二值化处理的阈值
+      dotScale: 1, //数据区域点缩小比例,默认为1
+      autoColor: "#fff", //boolean 若为 true, 背景图的主要颜色将作为实点的颜色, 即 colorDark,默认 true
+      binarize: true, //boolean 若为 true, 图像将被二值化处理, 未指定阈值则使用默认值
+      binarizeThreshold: 128, //阈值用于对整个图像进行二值化。 默认是128。 阈值(0 < < 255)二值化处理的阈值
       components: null,
     });
+    const mapOptions = {
+      size: "大小", // 尺寸, 长宽一致, 包含外边距
+      margin: "外边距", // 二维码图像的外边距, 默认 20px
+      colorDark: "实点的颜色", //实点的颜色
+      colorLight: "空白区的颜色", //空白区的颜色
+      backgroundColor: "背景色", //背景色
+      backgroundImage: "背景图", //背景图
+      // backgroundDimming: null, //叠加在背景图上的颜色, 在解码有难度的时有一定帮助
+      logoImage: "logo图", //logo图
+      logoScale: "logo大小", //用于计算 LOGO 大小的值, 过大将导致解码失败, LOGO 尺寸计算公式 logoScale*(size-2*margin), 默认 0.2
+      logoBackgroundColor: "logo背景色", //背景色,需要设置 logo margin
+      correctLevel: "容错级别", //容错级别 0-3
+      logoMargin: "logo边框", //LOGO 标识周围的空白边框, 默认为0
+      logoCornerRadius: "logo圆角", //LOGO 标识及其边框的圆角半径, 默认为0
+      whiteMargin: "背景图外将绘制白色边框", //boolean 若设为 true, 背景图外将绘制白色边框
+      dotScale: "数据区域点缩小比例", //数据区域点缩小比例,默认为1
+      autoColor: "背景图的主要颜色将作为实点的颜色", //boolean 若为 true, 背景图的主要颜色将作为实点的颜色, 即 colorDark,默认 true
+      binarize: "二值化处理", //boolean 若为 true, 图像将被二值化处理, 未指定阈值则使用默认值
+      binarizeThreshold: "阈值", //阈值用于对整个图像进行二值化。 默认是128。 阈值(0 < < 255)二值化处理的阈值
+    };
     const saveQrcode = (dom) => {
       domtoimage.toPng(document.querySelector(dom)).then((imgurl) => {
         var a = document.createElement("a"); // 创建一个a节点插入的document
@@ -82,6 +118,9 @@ export default defineComponent({
       qrcodeUrl,
       value,
       imgUrl,
+      qrOptions,
+      mapOptions,
+      optionskeys: Object.keys(mapOptions),
       saveQrcode,
     };
   },
@@ -91,12 +130,9 @@ export default defineComponent({
 .qrcode {
   width: 200px;
   height: 200px;
-  margin: 0 auto;
-  text-align: center;
-  #canvas {
-    display: block;
-    width: 100% !important;
-    height: 100% !important;
-  }
+  border: 1px #ccc solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
