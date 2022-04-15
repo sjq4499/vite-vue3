@@ -1,23 +1,33 @@
 <!--
  * @Descripttion: 
  * @Author: sjq
+ * @Date: 2022-04-15 15:09:10
+ * @LastEditors: sjq
+ * @LastEditTime: 2022-04-15 15:09:10
+-->
+<!--
+ * @Descripttion: 
+ * @Author: sjq
  * @Date: 2022-04-14 14:06:14
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-15 17:10:45
+ * @LastEditTime: 2022-04-15 14:48:48
 -->
 <template>
   <h1>生成二维码</h1>
   <div>内容： <el-input v-model="value" placeholder=""></el-input></div>
+  <div class="qrcode">
+    <canvas id="canvas"></canvas>
+  </div>
+  <el-button type="primary" @click="saveQrcode('#canvas')">保存图片</el-button>
   <img :src="imgUrl" id="img" alt="" />
   <el-button type="primary" @click="saveQrcode('#img')">保存图片</el-button>
 </template>
 <script>
 import { defineComponent, ref, reactive, onMounted, watchEffect } from "vue";
+import Qrcode from "qrcode";
 import domtoimage from "dom-to-image";
 import { AwesomeQR } from "awesome-qr";
-import { getImageUrl } from "@/utils/index";
-// https://github.com/SumiMakito/Awesome-qr.js
-// https://github.com/Binaryify/vue-qr
+
 export default defineComponent({
   name: "Qrcode",
   setup() {
@@ -25,28 +35,23 @@ export default defineComponent({
     const value = ref("二维码内容");
     const imgUrl = ref("");
     const qrOptions = reactive({
-      gifBackground: null,
-      text: null,
-      size: 200, // 尺寸, 长宽一致, 包含外边距
-      margin: null, // 二维码图像的外边距, 默认 20px
-      colorDark: null, //实点的颜色
-      colorLight: null, //空白区的颜色
-      backgroundColor: null, //背景色
-      backgroundImage: null, //背景图
-      backgroundDimming: null, //叠加在背景图上的颜色, 在解码有难度的时有一定帮助
-      logoImage: null, //logo图
-      logoScale: null, //用于计算 LOGO 大小的值, 过大将导致解码失败, LOGO 尺寸计算公式 logoScale*(size-2*margin), 默认 0.2
-      logoBackgroundColor: null, //背景色,需要设置 logo margin
-      correctLevel: null, //容错级别 0-3
-      logoMargin: null,
-      logoCornerRadius: null, //LOGO 标识及其边框的圆角半径, 默认为0
-      whiteMargin: null, //boolean 若设为 true, 背景图外将绘制白色边框
-      dotScale: null, //数据区域点缩小比例,默认为1
-      autoColor: null, //boolean 若为 true, 背景图的主要颜色将作为实点的颜色, 即 colorDark,默认 true
-      binarize: null, //boolean 若为 true, 图像将被二值化处理, 未指定阈值则使用默认值
-      binarizeThreshold: null, //阈值用于对整个图像进行二值化。 默认是128。 阈值(0 < < 255)二值化处理的阈值
-      components: null,
+      // errorCorrectionLevel: "H", //纠错级别 L, M, Q, H
+      // type: "image/jpeg",//数据 URI 格式。可能的值为：image/png, image/jpeg, image/webp。
+      // quality: 0.3, //图像质量
+      // margin: 1,
+      color: {
+        // 必须是rgba
+        // dark: "#00000000", //前背景
+        // light: "#f5f5f5f5", //背景色
+      },
     });
+    const qrCode = (url) => {
+      console.log(qrOptions);
+      let canvas = document.getElementById("canvas");
+      Qrcode.toCanvas(canvas, url || value.value, qrOptions, function (error) {
+        if (error) console.error(error);
+      });
+    };
     const saveQrcode = (dom) => {
       domtoimage.toPng(document.querySelector(dom)).then((imgurl) => {
         var a = document.createElement("a"); // 创建一个a节点插入的document
@@ -57,24 +62,21 @@ export default defineComponent({
       });
     };
     const createQrcode = () => {
-      let options = {};
-      Object.keys(qrOptions).forEach((item) => {
-        if (qrOptions[item] === null) return;
-        options[item] = qrOptions[item];
-      });
       new AwesomeQR({
-        ...options,
         text: value.value,
       })
         .draw()
         .then((dataUri) => {
           imgUrl.value = dataUri;
+          console.log(dataUri);
         });
     };
     onMounted(() => {
+      qrCode();
       createQrcode();
     });
     watchEffect(() => {
+      if (qrCode) qrCode();
       createQrcode();
     });
 
@@ -82,6 +84,7 @@ export default defineComponent({
       qrcodeUrl,
       value,
       imgUrl,
+      qrCode,
       saveQrcode,
     };
   },
