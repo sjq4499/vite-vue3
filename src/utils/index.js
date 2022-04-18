@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2021-12-07 15:58:15
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-15 09:24:34
+ * @LastEditTime: 2022-04-18 14:55:38
  */
 // 文件转base64
 export function fileToBase64(file, callback) {
@@ -94,4 +94,36 @@ export const getallComponents = (allComponents) => {
     res_components[name] = comp.default;
   });
   return res_components;
+};
+
+export const readAsArrayBuffer = function (url, callback) {
+  return new Promise((resolve, reject) => {
+    var xhr = new XMLHttpRequest();
+    xhr.responseType = "blob"; //设定返回数据类型为Blob
+    xhr.onload = function () {
+      var reader = new FileReader();
+      reader.onloadend = function () {
+        resolve(reader.result);
+      };
+      reader.readAsArrayBuffer(xhr.response); //xhr.response就是一个Blob，用FileReader读取
+    };
+    xhr.open("GET", url);
+    xhr.send();
+  });
+};
+
+// file转ArrayBuffer
+export const fileToBuf = function (file, cb) {
+  var fr = new FileReader();
+  var filename = file.name;
+
+  fr.readAsArrayBuffer(file);
+  fr.addEventListener(
+    "loadend",
+    (e) => {
+      var buf = e.target.result;
+      cb(buf, filename);
+    },
+    false
+  );
 };

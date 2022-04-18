@@ -1,70 +1,89 @@
 @import './index.scss';
 $color-primary: #1890ff;
+
 .flexdiv {
   display: flex;
+
   &.average {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
+
   .block {
     flex: 1;
   }
+
   .block-right {
     flex: 1;
     text-align: right;
     display: inline-block;
   }
 }
+
 .flexright {
   margin-left: auto;
   flex: 0 0 260px;
   text-align: right;
 }
+
 .font12 {
   font-size: 12px;
 }
+
 .font14 {
   font-size: 14px;
 }
+
 .font16 {
   font-size: 16px;
 }
+
 .color-red {
   color: #ff3333;
+
   .content {
     color: #ff3333 !important;
   }
 }
+
 .color-grey {
   color: #909399;
 }
+
 .color-primary {
   color: $color-primary;
 }
+
 .color-green {
   color: #07c05f !important;
 }
+
 .color-yellow {
   color: #ff6633;
 }
+
 .textgray {
   color: #999 !important;
 }
+
 .border-theme {
   border: 1px solid #f4f5f7;
   border-radius: 4px;
 }
+
 .posright-link {
   position: absolute;
   right: 0;
   color: $color-primary;
   font-size: 13px;
 }
+
 .punybutton {
   border: 1px dashed #ededed;
   color: $color-primary;
 }
+
 img {
   max-width: 100%;
   display: block;
@@ -73,115 +92,151 @@ img {
 .txt-right {
   text-align: right;
 }
+
 .mt {
   margin-top: 20px;
 }
+
 .mr10 {
   margin-right: 10px;
 }
+
 .ml10 {
   margin-left: 10px;
 }
+
 .mt24 {
   margin-top: 24px;
 }
+
 .mt35 {
   margin-top: 35px;
 }
+
 .mb20 {
   margin-bottom: 20px;
 }
+
 .mb30 {
   margin-bottom: 30px;
 }
+
 .pl50 {
   padding-left: 50px;
-  
+
 }
-.pl10{
+
+.pl10 {
   padding-left: 10px;
 }
+
 .plr20 {
   padding-left: 20px;
   padding-right: 20px;
 }
+
 .pt10 {
   padding-top: 10px;
 }
+
 .pt15 {
   padding-top: 15px;
 }
+
 .pt20 {
   padding-top: 20px;
 }
+
 .mt10 {
   margin-top: 10px;
 }
+
 .mt15 {
   margin-top: 15px;
 }
+
 .mt20 {
   margin-top: 20px;
 }
+
 .mt30 {
   margin-top: 30px;
 }
+
 .mr20 {
   margin-right: 20px;
 }
+
 .mr30 {
   margin-right: 30px;
 }
+
 .ml20 {
   margin-left: 20px;
 }
+
 .ml30 {
   margin-left: 30px;
 }
+
 .mb10 {
   margin-bottom: 10px;
 }
+
 .mb15 {
   margin-bottom: 15px;
 }
+
 .mb0 {
   margin: 0;
 }
+
 .mtb20 {
   margin: 20px 0;
 }
+
 .pd10 {
   padding: 10px;
 }
+
 .pd20 {
   padding: 20px;
 }
+
 .pd30 {
   padding: 30px;
 }
+
 .lh {
   line-height: 22px;
 }
+
 .lh22 {
   line-height: 22px;
 }
+
 .lh26 {
   line-height: 26px;
 }
+
 .lh28 {
   line-height: 28px;
 }
+
 .lh32 {
   line-height: 32px;
 }
+
 .bgwhite {
   background-color: #fff;
 }
+
 .bgwcon {
   background-color: #fff;
   padding: 30px;
   border-radius: 4px;
   margin-top: 20px;
+
   &:first-child {
     margin-top: 0;
   }
@@ -190,25 +245,32 @@ img {
 .formcon {
   padding: 20px 0;
 }
+
 .box {
   margin: 20px;
 }
+
 .cbox {
   margin: 20px;
+
   .el-form {
     background-color: transparent;
   }
 }
+
 .title_line {
   border-bottom: 1px solid #f0f0f0;
   margin-bottom: 30px;
   padding-bottom: 12px;
+
   h3 {
     margin: 0;
   }
+
   &.mt {
     margin-top: 40px;
   }
+
   .tip {
     font-size: 12px;
     margin-top: 12px;
@@ -216,10 +278,11 @@ img {
     display: inline-block;
     margin-left: 24px;
   }
-  .tip_right{
+
+  .tip_right {
     float: right;
     margin-top: 0;
-  }   
+  }
 }
 
 .sdetail {
@@ -227,61 +290,84 @@ img {
     margin-bottom: 12px;
   }
 }
+
 .search-form {
   padding: 22px 22px 5px;
   background: #fff;
   border-radius: 4px;
   margin-bottom: 20px;
+
   .el-form--inline {
     border: none;
     padding: 0;
     margin-bottom: 0;
+
     .el-form-item:last-child {
       display: inline-block;
     }
   }
+
   &.searchbg {
     background-color: #fafafa;
   }
 }
+
 .course_submit {
   margin-top: 30px;
   text-align: center;
+
   button {
     min-width: 120px;
   }
+
   &.mb {
     margin-bottom: 30px;
   }
 }
+
 .title-info {
   h1 {
     margin: 0;
     font-size: 16px;
   }
 }
+
 .main-m {
   margin: 20px;
 }
+
 .main {
   background: #fff;
   padding: 22px;
   border-radius: 4px;
 }
+
 .main-header {
   margin-bottom: 15px;
+
   .header-right {
     float: right;
   }
+
   .header-left {
     line-height: 30px;
     padding-left: 20px;
   }
 }
+
 .pagelist {
   text-align: right;
   padding-bottom: 1px;
+
   button {
     margin-left: 30px;
   }
+}
+
+.flexbox {
+  display: flex;
+}
+
+.center {
+  text-align: center;
 }

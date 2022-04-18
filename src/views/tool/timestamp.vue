@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-04-02 09:52:03
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-15 10:06:59
+ * @LastEditTime: 2022-04-18 13:53:24
 -->
 <template>
   <div class="">
@@ -133,12 +133,6 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
-.flexbox {
-  display: flex;
-}
-.center {
-  text-align: center;
-}
 .color_red {
   color: #f55;
   font-size: 16px;
