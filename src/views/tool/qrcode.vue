@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-04-14 14:06:14
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-18 17:23:31
+ * @LastEditTime: 2022-04-19 11:15:51
 -->
 <template>
   <h1>生成二维码</h1>
@@ -32,6 +32,7 @@
         class="avatar-uploader"
         v-model="qrOptions[key]"
         :show-file-list="false"
+        action=""
         :http-request="
           (res) => {
             return customRequest(res, key);
@@ -77,9 +78,8 @@ import {
   fileToBuf,
 } from "@/utils/index.js";
 import { DeleteFilled } from "@element-plus/icons-vue";
-// import { SuperGif } from "libjs";
 
-//
+// ck
 // https://github.com/SumiMakito/Awesome-qr.js
 // https://github.com/Binaryify/vue-qr
 export default defineComponent({
@@ -112,10 +112,26 @@ export default defineComponent({
       correctLevel: 0, //容错级别 0-3
       logoMargin: 2, //LOGO 标识周围的空白边框, 默认为0
       logoCornerRadius: 0, //LOGO 标识及其边框的圆角半径, 默认为0
-      dotScale: 1, //数据区域点缩小比例,默认为1
+      // dotScale: 1, //数据区域点缩小比例,默认为1
       // binarize: true, //boolean 若为 true, 图像将被二值化处理, 未指定阈值则使用默认值
       // binarizeThreshold: 128, //阈值用于对整个图像进行二值化。 默认是128。 阈值(0 < < 255)二值化处理的阈值
-      // components: null,
+      components: {
+        data: {
+          scale: 1.0,
+        },
+        timing: {
+          scale: 1,
+          protectors: false,
+        },
+        alignment: {
+          scale: 1,
+          protectors: false,
+        },
+        cornerAlignment: {
+          scale: 1,
+          protectors: false,
+        },
+      },
     });
     const mapOptions = {
       size: "大小", // 尺寸, 长宽一致, 包含外边距
@@ -150,45 +166,12 @@ export default defineComponent({
       },
     ];
     const saveQrcode = (dom) => {
-      // let superGif = new SuperGif({
-      //   gif: document.querySelector(dom),
-      // });
-      // console.log(superGif);
-      // window.pageYoffset = 0;
-      // document.documentElement.scrollTop = 0;
-      // document.body.scrollTop = 0;
-      // // html2canvas配置项
-      // const options = {
-      //   scale: 1,
-      //   width: qrOptions.size,
-      //   height: qrOptions.size,
-      //   logging: false, //日志开关，便于查看html2canvas的内部执行流程
-      //   scrollY: 0,
-      //   scrollX: 0,
-      //   useCORS: true, // 【重要】开启跨域配置
-      //   allowTaint: false,
-      // };
-      // html2canvas(document.querySelector(dom), options).then((canvas) => {
-      //   let imgurl = canvas.toDataURL(
-      //     qrOptions.gifBackground ? "image/gif" : "image/png"
-      //   );
-      //   console.log(
-      //     imgurl,
-      //     qrOptions.gifBackground ? "image/gif" : "image/png"
-      //   );
-      //   var a = document.createElement("a"); // 创建一个a节点插入的document
-      //   var event = new MouseEvent("click"); // 模拟鼠标click点击事件
-      //   a.download = new Date() * 1; // 设置a节点的download属性值
-      //   a.href = imgurl; // 将图片的src赋值给a节点的href
-      //   a.dispatchEvent(event); // 触发鼠标点击事件
-      // });
-      domtoimage.toPng(document.querySelector(dom)).then((imgurl) => {
-        var a = document.createElement("a"); // 创建一个a节点插入的document
-        var event = new MouseEvent("click"); // 模拟鼠标click点击事件
-        a.download = new Date() * 1; // 设置a节点的download属性值
-        a.href = imgurl; // 将图片的src赋值给a节点的href
-        a.dispatchEvent(event); // 触发鼠标点击事件
-      });
+      let img = document.querySelector(dom);
+      var a = document.createElement("a"); // 创建一个a节点插入的document
+      var event = new MouseEvent("click"); // 模拟鼠标click点击事件
+      a.download = new Date() * 1; // 设置a节点的download属性值
+      a.href = img.src; // 将图片的src赋值给a节点的href
+      a.dispatchEvent(event); // 触发鼠标点击事件
     };
     const createQrcode = () => {
       let options = {};
