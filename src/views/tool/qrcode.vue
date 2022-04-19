@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-04-14 14:06:14
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-19 16:32:44
+ * @LastEditTime: 2022-04-19 17:18:20
 -->
 <template>
   <n-h1 prefix="bar" align-text>生成二维码</n-h1>
@@ -96,16 +96,8 @@
 </template>
 <script>
 import { defineComponent, ref, reactive, onMounted, watchEffect } from "vue";
-import domtoimage from "dom-to-image";
-import html2canvas from "html2canvas";
 import { AwesomeQR } from "awesome-qr";
-import { getImageUrl } from "@/utils/index";
-import {
-  fileToBase64,
-  getImageDimensions,
-  readAsArrayBuffer,
-  fileToBuf,
-} from "@/utils/index.js";
+import { fileToBase64, fileToBuf } from "@/utils/index.js";
 import { DeleteFilled } from "@element-plus/icons-vue";
 import QrcodeDecoder from "qrcode-decoder";
 
