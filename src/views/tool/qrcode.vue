@@ -3,30 +3,45 @@
  * @Author: sjq
  * @Date: 2022-04-14 14:06:14
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-19 15:40:36
+ * @LastEditTime: 2022-04-19 16:05:08
 -->
 <template>
   <n-h1 prefix="bar" align-text>生成二维码</n-h1>
-  <div>内容： <el-input v-model="value" placeholder=""></el-input></div>
-  <el-upload
-    class="avatar-uploader"
-    :show-file-list="false"
-    action=""
-    :http-request="
-      (res) => {
-        return customRequest(res, 'analysis');
-      }
-    "
-    accept=".png,.jpg,.jpeg"
-  >
-    <el-button>解析二维码</el-button>
-  </el-upload>
+  <div class="qrcode_content">
+    <div class="flexbox">
+      内容：
+      <el-upload
+        class="avatar-uploader"
+        :show-file-list="false"
+        action=""
+        :http-request="
+          (res) => {
+            return customRequest(res, 'analysis');
+          }
+        "
+        accept=".png,.jpg,.jpeg"
+      >
+        <el-button type="primary" plain>解析二维码</el-button>
+      </el-upload>
+    </div>
 
-  <div class="qrcode">
-    <img :src="imgUrl" id="img" alt="" />
+    <el-input
+      v-model="value"
+      placeholder=""
+      :rows="4"
+      type="textarea"
+    ></el-input>
+  </div>
+  <div class="qrcode_show">
+    <div class="flexbox">
+      效果：
+      <el-button type="primary" @click="saveQrcode('#img')">download</el-button>
+    </div>
+    <div class="qrcode">
+      <img :src="imgUrl" id="img" alt="" />
+    </div>
   </div>
 
-  <el-button type="primary" @click="saveQrcode('#img')">保存图片</el-button>
   <el-form :inline="true">
     <el-form-item
       v-for="(key, index) in optionskeys"
@@ -111,11 +126,10 @@ export default defineComponent({
     const imgUrl = ref("");
     const qrOptions = reactive({
       text: null,
-      size: 200, // 尺寸, 长宽一致, 包含外边距
+      size: 260, // 尺寸, 长宽一致, 包含外边距
       margin: 20, // 二维码图像的外边距, 默认 20px
       colorDark: "#000", //实点的颜色
       colorLight: "#fff", //空白区的颜色
-      backgroundColor: "#fff", //背景色
       autoColor: false, //boolean 若为 true, 根据二维码背景自动计算colorDark值。
       whiteMargin: false, //boolean 若设为 true, 背景图外将绘制白色边框；使用白色边距而不是透明边距，这样可以在边距上显示 QR 码的背景。
       gifBackground: null,
@@ -154,7 +168,6 @@ export default defineComponent({
       colorDark: "前背景", //实点的颜色
       colorLight: "后背景", //空白区的颜色
       whiteMargin: "背景占用边距", // //boolean 若设为 true, 背景图外将绘制白色边框；使用白色边距而不是透明边距，这样可以在边距上显示 QR 码的背景。
-      // backgroundColor: "背景色", //背景色
       gifBackground: "gif图",
       backgroundImage: "背景图", //背景图
       // backgroundDimming: null, //叠加在背景图上的颜色, 在解码有难度的时有一定帮助
@@ -184,7 +197,6 @@ export default defineComponent({
           "whiteMargin",
           "backgroundImage",
           "gifBackground",
-          "backgroundColor",
           "backgroundDimming",
         ],
       },
@@ -213,6 +225,7 @@ export default defineComponent({
         if (!res) {
           ElMessage.error("没有解析到二维码");
         } else {
+          console.log(res);
           value.value = res.data;
         }
       });
@@ -275,14 +288,27 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
-.qrcode {
-  width: 200px;
-  height: 200px;
-  border: 1px #ccc solid;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.qrcode_content {
+  margin-bottom: 24px;
+  .flexbox {
+    margin-bottom: 12px;
+  }
 }
+.qrcode_show {
+  .flexbox {
+    margin-bottom: 12px;
+  }
+  .qrcode {
+    width: 250px;
+    height: 250px;
+    border: 1px #ccc solid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
 .minimg {
   width: 30px;
   height: 30px;
