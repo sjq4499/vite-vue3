@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2021-12-07 13:55:53
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-18 15:48:35
+ * @LastEditTime: 2022-04-19 16:37:23
 -->
 
 <template>
@@ -11,7 +11,7 @@
     <router-view></router-view>
   </n-config-provider>
 
-  <!-- <n-watermark
+  <n-watermark
     cross
     fullscreen
     :font-size="16"
@@ -23,9 +23,9 @@
     :image-width="164"
     :image-opacity="0.2"
     :rotate="-15"
-    :image="getImageUrl('watermark3.jpg')"
-  /> -->
-
+    :image="getImageUrl('watermark1.png')"
+  />
+  <!-- 
   <n-watermark
     content="冷r"
     cross
@@ -37,7 +37,7 @@
     :x-offset="12"
     :y-offset="60"
     :rotate="-15"
-  />
+  /> -->
 </template>
 <script>
 import { defineComponent } from "vue";
