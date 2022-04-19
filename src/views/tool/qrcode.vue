@@ -3,10 +3,10 @@
  * @Author: sjq
  * @Date: 2022-04-14 14:06:14
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-19 11:15:51
+ * @LastEditTime: 2022-04-19 15:12:27
 -->
 <template>
-  <h1>生成二维码</h1>
+  <n-h1 prefix="bar" align-text>生成二维码</n-h1>
   <div>内容： <el-input v-model="value" placeholder=""></el-input></div>
   <div class="qrcode">
     <img :src="imgUrl" id="img" alt="" />
@@ -94,7 +94,6 @@ export default defineComponent({
     );
     const imgUrl = ref("");
     const qrOptions = reactive({
-      gifBackground: null,
       text: null,
       size: 200, // 尺寸, 长宽一致, 包含外边距
       margin: 20, // 二维码图像的外边距, 默认 20px
@@ -157,12 +156,31 @@ export default defineComponent({
     };
     const qrConfig = [
       {
+        title: "基础设置",
+        children: ["size", "margin", "correctLevel"],
+      },
+      {
         title: "颜色设置",
-        children: ["colorDark", "colorLight"],
+        children: [
+          "colorDark",
+          "colorLight",
+          "autoColor",
+          "whiteMargin",
+          "backgroundImage",
+          "gifBackground",
+          "backgroundColor",
+          "backgroundDimming",
+        ],
       },
       {
         title: "嵌入logo",
-        children: ["colorDark", "colorLight"],
+        children: [
+          "logoImage",
+          "logoScale",
+          "logoBackgroundColor",
+          "logoMargin",
+          "logoCornerRadius",
+        ],
       },
     ];
     const saveQrcode = (dom) => {
@@ -208,7 +226,6 @@ export default defineComponent({
       createQrcode();
     });
     watchEffect(() => {
-      console.log(qrOptions.gifBackground);
       console.log("重新生成二维码");
       createQrcode();
     });
