@@ -3,18 +3,18 @@
  * @Author: sjq
  * @Date: 2022-04-14 14:06:14
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-19 16:05:08
+ * @LastEditTime: 2022-04-19 16:32:44
 -->
 <template>
   <n-h1 prefix="bar" align-text>生成二维码</n-h1>
   <div class="qrcode_content">
     <div class="flexbox">
       内容：
-      <el-upload
-        class="avatar-uploader"
-        :show-file-list="false"
+      <n-upload
         action=""
-        :http-request="
+        :show-file-list="false"
+        ref="analysisUpload"
+        :customRequest="
           (res) => {
             return customRequest(res, 'analysis');
           }
@@ -22,11 +22,11 @@
         accept=".png,.jpg,.jpeg"
       >
         <el-button type="primary" plain>解析二维码</el-button>
-      </el-upload>
+      </n-upload>
     </div>
 
     <el-input
-      v-model="value"
+      v-model="qrcodeText"
       placeholder=""
       :rows="4"
       type="textarea"
@@ -57,17 +57,16 @@
         v-model="qrOptions[key]"
         show-alpha
       ></el-color-picker>
-      <el-upload
+      <n-upload
         v-else-if="/image/i.test(key) || key === 'gifBackground'"
-        class="avatar-uploader"
-        v-model="qrOptions[key]"
-        :show-file-list="false"
         action=""
-        :http-request="
+        :show-file-list="false"
+        :customRequest="
           (res) => {
             return customRequest(res, key);
           }
         "
+        v-model="qrOptions[key]"
         :accept="key === 'gifBackground' ? '.gif' : '.png,.jpg,.jpeg'"
       >
         <div v-if="qrOptions[key]" class="flexbox">
@@ -75,7 +74,7 @@
           <el-icon @click="deleteImg(key)"><delete-filled /></el-icon>
         </div>
         <el-button v-else>点击上传</el-button>
-      </el-upload>
+      </n-upload>
 
       <el-radio-group
         v-else-if="key === 'correctLevel'"
@@ -120,10 +119,11 @@ export default defineComponent({
   },
   setup() {
     const qrcodeUrl = ref("200");
-    const value = ref(
+    const qrcodeText = ref(
       "https://sjq4499.github.io/vite-vue3/#/tool?activeName=qrcode"
     );
     const imgUrl = ref("");
+    const analysisUpload = ref("");
     const qrOptions = reactive({
       text: null,
       size: 260, // 尺寸, 长宽一致, 包含外边距
@@ -226,7 +226,7 @@ export default defineComponent({
           ElMessage.error("没有解析到二维码");
         } else {
           console.log(res);
-          value.value = res.data;
+          qrcodeText.value = res.data;
         }
       });
     };
@@ -238,7 +238,7 @@ export default defineComponent({
       });
       new AwesomeQR({
         ...options,
-        text: value.value,
+        text: qrcodeText.value,
       })
         .draw()
         .then((dataUri) => {
@@ -247,15 +247,17 @@ export default defineComponent({
     };
     const customRequest = (file, key) => {
       console.log(file, key);
+      let files = file.file.file;
       if (key === "gifBackground") {
-        fileToBuf(file.file, (data) => {
+        fileToBuf(files, (data) => {
           console.log(data);
           qrOptions[key] = data;
         });
       } else {
-        fileToBase64(file.file, (data) => {
+        fileToBase64(files, (data) => {
           if (key === "analysis") {
             analysisQr(data);
+            analysisUpload.value.clear();
           } else {
             qrOptions[key] = data;
           }
@@ -275,11 +277,12 @@ export default defineComponent({
 
     return {
       qrcodeUrl,
-      value,
+      qrcodeText,
       imgUrl,
       qrOptions,
       mapOptions,
       optionskeys: Object.keys(mapOptions),
+      analysisUpload,
       saveQrcode,
       customRequest,
       deleteImg,
