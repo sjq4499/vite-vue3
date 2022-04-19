@@ -3,14 +3,29 @@
  * @Author: sjq
  * @Date: 2022-04-14 14:06:14
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-19 15:12:27
+ * @LastEditTime: 2022-04-19 15:40:36
 -->
 <template>
   <n-h1 prefix="bar" align-text>生成二维码</n-h1>
   <div>内容： <el-input v-model="value" placeholder=""></el-input></div>
+  <el-upload
+    class="avatar-uploader"
+    :show-file-list="false"
+    action=""
+    :http-request="
+      (res) => {
+        return customRequest(res, 'analysis');
+      }
+    "
+    accept=".png,.jpg,.jpeg"
+  >
+    <el-button>解析二维码</el-button>
+  </el-upload>
+
   <div class="qrcode">
     <img :src="imgUrl" id="img" alt="" />
   </div>
+
   <el-button type="primary" @click="saveQrcode('#img')">保存图片</el-button>
   <el-form :inline="true">
     <el-form-item
@@ -78,6 +93,7 @@ import {
   fileToBuf,
 } from "@/utils/index.js";
 import { DeleteFilled } from "@element-plus/icons-vue";
+import QrcodeDecoder from "qrcode-decoder";
 
 // ck
 // https://github.com/SumiMakito/Awesome-qr.js
@@ -183,13 +199,23 @@ export default defineComponent({
         ],
       },
     ];
-    const saveQrcode = (dom) => {
+    const saveQrcode = () => {
       let img = document.querySelector(dom);
       var a = document.createElement("a"); // 创建一个a节点插入的document
       var event = new MouseEvent("click"); // 模拟鼠标click点击事件
       a.download = new Date() * 1; // 设置a节点的download属性值
       a.href = img.src; // 将图片的src赋值给a节点的href
       a.dispatchEvent(event); // 触发鼠标点击事件
+    };
+    const analysisQr = (img) => {
+      var qr = new QrcodeDecoder();
+      qr.decodeFromImage(img).then((res) => {
+        if (!res) {
+          ElMessage.error("没有解析到二维码");
+        } else {
+          value.value = res.data;
+        }
+      });
     };
     const createQrcode = () => {
       let options = {};
@@ -215,7 +241,11 @@ export default defineComponent({
         });
       } else {
         fileToBase64(file.file, (data) => {
-          qrOptions[key] = data;
+          if (key === "analysis") {
+            analysisQr(data);
+          } else {
+            qrOptions[key] = data;
+          }
         });
       }
     };
