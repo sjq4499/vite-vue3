@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-04-14 14:06:14
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-19 17:18:20
+ * @LastEditTime: 2022-04-20 14:20:20
 -->
 <template>
   <n-h1 prefix="bar" align-text>生成二维码</n-h1>
