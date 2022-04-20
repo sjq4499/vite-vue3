@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-04-14 14:06:14
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-20 14:20:20
+ * @LastEditTime: 2022-04-20 16:29:28
 -->
 <template>
   <n-h1 prefix="bar" align-text>生成二维码</n-h1>
@@ -42,57 +42,66 @@
     </div>
   </div>
 
-  <el-form :inline="true">
-    <el-form-item
-      v-for="(key, index) in optionskeys"
-      :key="index"
-      :label="mapOptions[key]"
+  <n-tabs type="line" animated>
+    <n-tab-pane
+      v-for="item in qrConfig"
+      :key="item.value"
+      :tab="item.title"
+      :name="item.value"
     >
-      <el-switch
-        v-if="typeof qrOptions[key] === 'boolean'"
-        v-model="qrOptions[key]"
-      />
-      <el-color-picker
-        v-else-if="/color/i.test(key)"
-        v-model="qrOptions[key]"
-        show-alpha
-      ></el-color-picker>
-      <n-upload
-        v-else-if="/image/i.test(key) || key === 'gifBackground'"
-        action=""
-        :show-file-list="false"
-        :customRequest="
-          (res) => {
-            return customRequest(res, key);
-          }
-        "
-        v-model="qrOptions[key]"
-        :accept="key === 'gifBackground' ? '.gif' : '.png,.jpg,.jpeg'"
-      >
-        <div v-if="qrOptions[key]" class="flexbox">
-          <img class="minimg" :src="qrOptions[key]" alt="" />
-          <el-icon @click="deleteImg(key)"><delete-filled /></el-icon>
-        </div>
-        <el-button v-else>点击上传</el-button>
-      </n-upload>
+      <el-form :inline="true">
+        <el-form-item
+          v-for="(key, index) in item.children"
+          :key="index"
+          :label="mapOptions[key]"
+        >
+          <el-switch
+            v-if="typeof qrOptions[key] === 'boolean'"
+            v-model="qrOptions[key]"
+          />
+          <el-color-picker
+            v-else-if="/color/i.test(key)"
+            v-model="qrOptions[key]"
+            show-alpha
+          ></el-color-picker>
+          <n-upload
+            v-else-if="/image/i.test(key) || key === 'gifBackground'"
+            action=""
+            :show-file-list="false"
+            :customRequest="
+              (res) => {
+                return customRequest(res, key);
+              }
+            "
+            v-model="qrOptions[key]"
+            :accept="key === 'gifBackground' ? '.gif' : '.png,.jpg,.jpeg'"
+          >
+            <div v-if="qrOptions[key]" class="flexbox">
+              <img class="minimg" :src="qrOptions[key]" alt="" />
+              <el-icon @click="deleteImg(key)"><delete-filled /></el-icon>
+            </div>
+            <el-button v-else>点击上传</el-button>
+          </n-upload>
 
-      <el-radio-group
-        v-else-if="key === 'correctLevel'"
-        v-model="qrOptions[key]"
-      >
-        <el-radio-button :label="0">低</el-radio-button>
-        <el-radio-button :label="1">中</el-radio-button>
-        <el-radio-button :label="2">高</el-radio-button>
-      </el-radio-group>
-      <el-input-number
-        v-else-if="/scale/i.test(key)"
-        v-model="qrOptions[key]"
-        :precision="2"
-        :step="0.1"
-      />
-      <el-input v-else v-model.number="qrOptions[key]" precision="2" />
-    </el-form-item>
-  </el-form>
+          <el-radio-group
+            v-else-if="key === 'correctLevel'"
+            v-model="qrOptions[key]"
+          >
+            <el-radio-button :label="0">低</el-radio-button>
+            <el-radio-button :label="1">中</el-radio-button>
+            <el-radio-button :label="2">高</el-radio-button>
+          </el-radio-group>
+          <el-input-number
+            v-else-if="/scale/i.test(key)"
+            v-model="qrOptions[key]"
+            :precision="2"
+            :step="0.1"
+          />
+          <el-input v-else v-model.number="qrOptions[key]" precision="2" />
+        </el-form-item>
+      </el-form>
+    </n-tab-pane>
+  </n-tabs>
 </template>
 <script>
 import { defineComponent, ref, reactive, onMounted, watchEffect } from "vue";
@@ -165,7 +174,7 @@ export default defineComponent({
       // backgroundDimming: null, //叠加在背景图上的颜色, 在解码有难度的时有一定帮助
       logoImage: "logo图", //logo图
       logoScale: "logo大小", //用于计算 LOGO 大小的值, 过大将导致解码失败, LOGO 尺寸计算公式 logoScale*(size-2*margin), 默认 0.2
-      logoBackgroundColor: "logo背景色", //背景色,需要设置 logo margin
+      // logoBackgroundColor: "logo背景色", //背景色,需要设置 logo margin
       correctLevel: "容错级别", //容错级别 0-3
       logoMargin: "logo边框", //LOGO 标识周围的空白边框, 默认为0
       logoCornerRadius: "logo圆角", //LOGO 标识及其边框的圆角半径, 默认为0
@@ -178,10 +187,12 @@ export default defineComponent({
     const qrConfig = [
       {
         title: "基础设置",
+        value: "base",
         children: ["size", "margin", "correctLevel"],
       },
       {
         title: "颜色设置",
+        value: "color",
         children: [
           "colorDark",
           "colorLight",
@@ -189,18 +200,12 @@ export default defineComponent({
           "whiteMargin",
           "backgroundImage",
           "gifBackground",
-          "backgroundDimming",
         ],
       },
       {
         title: "嵌入logo",
-        children: [
-          "logoImage",
-          "logoScale",
-          "logoBackgroundColor",
-          "logoMargin",
-          "logoCornerRadius",
-        ],
+        value: "name",
+        children: ["logoImage", "logoScale", "logoMargin", "logoCornerRadius"],
       },
     ];
     const saveQrcode = () => {
@@ -275,6 +280,7 @@ export default defineComponent({
       mapOptions,
       optionskeys: Object.keys(mapOptions),
       analysisUpload,
+      qrConfig,
       saveQrcode,
       customRequest,
       deleteImg,
