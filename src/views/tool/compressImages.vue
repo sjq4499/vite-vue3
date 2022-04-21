@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-04-21 09:23:57
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-21 14:17:52
+ * @LastEditTime: 2022-04-21 16:48:28
 -->
 <template>
   <div class="">
@@ -15,7 +15,7 @@
           list-type="image-card"
           v-model="fileObj.url"
           :customRequest="customRequest"
-          accept=".png,.jpg,.jpeg"
+          accept="image/jpeg,image/png"
           :max="1"
         >
           点击上传
