@@ -3,19 +3,21 @@
  * @Author: sjq
  * @Date: 2022-03-31 09:29:10
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-14 15:22:36
+ * @LastEditTime: 2022-04-21 09:26:05
 -->
 <template>
   <div class="main">
-    <el-button
-      type="success"
-      class="list"
-      v-for="item in res_components"
-      :key="item.name"
-      @click="handleClick(item)"
-    >
-      {{ item.name }}
-    </el-button>
+    <div class="tab">
+      <el-button
+        type="success"
+        class="list"
+        v-for="item in res_components"
+        :key="item.name"
+        @click="handleClick(item)"
+      >
+        {{ item.name }}
+      </el-button>
+    </div>
     <div class="main">
       <component :is="activeName"></component>
     </div>
@@ -46,4 +48,10 @@ export default defineComponent({
   },
 });
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.tab {
+  button {
+    margin-bottom: 12px;
+  }
+}
+</style>
