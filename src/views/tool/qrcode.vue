@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-04-14 14:06:14
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-21 14:09:04
+ * @LastEditTime: 2022-04-21 16:54:48
 -->
 <template>
   <n-h1 prefix="bar" align-text>生成二维码</n-h1>
@@ -19,7 +19,7 @@
             return customRequest(res, 'analysis');
           }
         "
-        accept=".png,.jpg,.jpeg"
+        accept="image/jpeg,image/png,image/jpg"
       >
         <el-button type="primary" plain>解析二维码</el-button>
       </n-upload>
@@ -74,7 +74,11 @@
               }
             "
             v-model="qrOptions[key]"
-            :accept="key === 'gifBackground' ? '.gif' : '.png,.jpg,.jpeg'"
+            :accept="
+              key === 'gifBackground'
+                ? 'image/gif'
+                : 'image/jpeg,image/png,image/jpg'
+            "
           >
             <div v-if="qrOptions[key]" class="flexbox">
               <img class="minimg" :src="qrOptions[key]" alt="" />

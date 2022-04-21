@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2021-12-07 14:15:49
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-21 15:32:53
+ * @LastEditTime: 2022-04-21 16:54:37
 -->
 <template>
   <h1>图片颜色反转</h1>
@@ -13,7 +13,7 @@
       list-type="image-card"
       :max="1"
       :customRequest="customRequest"
-      accept=".png,.jpg,.jpeg"
+      accept="image/jpeg,image/png,image/jpg"
     >
       点击上传
     </n-upload>
