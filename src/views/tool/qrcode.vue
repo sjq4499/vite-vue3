@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-04-14 14:06:14
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-20 16:29:28
+ * @LastEditTime: 2022-04-21 14:09:04
 -->
 <template>
   <n-h1 prefix="bar" align-text>生成二维码</n-h1>
@@ -208,7 +208,7 @@ export default defineComponent({
         children: ["logoImage", "logoScale", "logoMargin", "logoCornerRadius"],
       },
     ];
-    const saveQrcode = () => {
+    const saveQrcode = (dom) => {
       let img = document.querySelector(dom);
       var a = document.createElement("a"); // 创建一个a节点插入的document
       var event = new MouseEvent("click"); // 模拟鼠标click点击事件
