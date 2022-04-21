@@ -3,17 +3,17 @@
  * @Author: sjq
  * @Date: 2021-12-07 14:15:49
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-21 15:07:10
+ * @LastEditTime: 2022-04-21 15:32:53
 -->
 <template>
   <h1>图片颜色反转</h1>
   <n-space justify="space-around" size="large" v-if="!fileUrl">
     <n-upload
       action=""
-      :default-file-list="fileList"
       list-type="image-card"
       :max="1"
       :customRequest="customRequest"
+      accept=".png,.jpg,.jpeg"
     >
       点击上传
     </n-upload>
