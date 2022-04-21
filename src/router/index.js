@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-03-03 10:16:24
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-13 16:24:10
+ * @LastEditTime: 2022-04-21 15:03:18
  */
 import { createRouter, createWebHashHistory } from "vue-router";
 
@@ -24,14 +24,6 @@ export const routes = [
     component: () => import("@/views/table2.vue"),
     meta: {
       activeName: "表格2",
-    },
-  },
-  {
-    path: "/upload",
-    name: "upload",
-    component: () => import("@/views/upload.vue"),
-    meta: {
-      activeName: "图片颜色反正",
     },
   },
   {

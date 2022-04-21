@@ -3,10 +3,10 @@
  * @Author: sjq
  * @Date: 2021-12-07 14:15:49
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-03 09:55:11
+ * @LastEditTime: 2022-04-21 15:07:10
 -->
 <template>
-  <h2>图片</h2>
+  <h1>图片颜色反转</h1>
   <n-space justify="space-around" size="large" v-if="!fileUrl">
     <n-upload
       action=""
@@ -22,7 +22,7 @@
     <n-image
       class="mimg"
       id="img"
-      :style="{ filter: `invert(${sliderValue}%)`, width: sliderValue + 'px' }"
+      :style="{ filter: `invert(${sliderValue}%)` }"
       :src="fileUrl"
     />
     <div>
@@ -46,10 +46,10 @@
 import { defineComponent, ref, reactive } from "vue";
 import { NUpload, NImage, NButton, NSlider, NSpace } from "naive-ui";
 import { fileToBase64, getImageDimensions } from "@/utils/index.js";
-import html2canvas from "html2canvas";
 import domtoimage from "dom-to-image";
 
 export default defineComponent({
+  name: "ReverseImgColor",
   components: {
     NUpload,
     NImage,

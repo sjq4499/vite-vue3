@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-04-21 09:43:40
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-21 09:53:27
+ * @LastEditTime: 2022-04-21 15:05:45
  */
 export default function (val) {
   switch (val) {
@@ -15,6 +15,8 @@ export default function (val) {
       return "JSON";
     case "CompressImages":
       return "压缩图片";
+    case "ReverseImgColor":
+      return "图片颜色反转";
     default:
       return val;
   }
