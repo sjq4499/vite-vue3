@@ -3,11 +3,11 @@
  * @Author: sjq
  * @Date: 2022-03-31 09:29:10
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-21 09:52:17
+ * @LastEditTime: 2022-04-21 11:23:54
 -->
 <template>
   <div class="main">
-    <div class="tab">
+    <div class="tab" v-if="isHideTab">
       <el-button
         type="success"
         class="list"
@@ -36,15 +36,17 @@ export default defineComponent({
   setup() {
     const activeName = ref("");
     const router = useRouter();
+    const isHideTab = ref(false);
     onMounted(() => {
+      let query = router.currentRoute.value.query;
+      isHideTab.value = !(query.isHideTab === "true");
       activeName.value =
-        router.currentRoute.value.query.activeName ||
-        res_components[Object.keys(res_components)[0]].name;
+        query.activeName || res_components[Object.keys(res_components)[0]].name;
     });
     let handleClick = (data) => {
       activeName.value = data.name;
     };
-    return { res_components, activeName, handleClick };
+    return { res_components, activeName, isHideTab, handleClick };
   },
 });
 </script>
