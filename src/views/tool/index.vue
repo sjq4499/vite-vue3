@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-03-31 09:29:10
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-21 09:26:05
+ * @LastEditTime: 2022-04-21 09:52:17
 -->
 <template>
   <div class="main">
@@ -15,7 +15,7 @@
         :key="item.name"
         @click="handleClick(item)"
       >
-        {{ item.name }}
+        {{ $filters.tabZN(item.name) }}
       </el-button>
     </div>
     <div class="main">
