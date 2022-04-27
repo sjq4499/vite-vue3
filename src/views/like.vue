@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-04-26 16:06:00
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-27 15:27:50
+ * @LastEditTime: 2022-04-27 15:38:21
 -->
 
 <template>
@@ -315,6 +315,21 @@ export default defineComponent({
             title: "冷r",
             logo: "https://upload.jianshu.io/users/upload_avatars/18847198/dd6f1b19-02b3-4133-87cd-be268b0fdfb9?imageMogr2/auto-orient/strip|imageView2/1/w/240/h/240",
             url: "https://www.jianshu.com/u/c9de7c4688e7",
+          },
+          {
+            title: "低代码平台",
+            logo: "NULLBUG",
+            url: "https://lc-editor.com/",
+          },
+          {
+            title: "二维码生成",
+            logo: "qrcode",
+            url: "https://sjq4499.github.io/vite-vue3/#/tool?activeName=qrcode&isHideTab=true",
+          },
+          {
+            title: "图片压缩",
+            logo: "compressImages",
+            url: "https://sjq4499.github.io/vite-vue3/#/tool?activeName=compressImages&isHideTab=true",
           },
           {
             title: "petpet",
