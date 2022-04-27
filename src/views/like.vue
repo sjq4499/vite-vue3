@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-04-26 16:06:00
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-27 10:06:47
+ * @LastEditTime: 2022-04-27 14:30:06
 -->
 
 <template>
@@ -20,7 +20,13 @@
           @click="handleClick(child)"
         >
           <div class="child_logo">
-            <img class="logo" :src="child.logo" alt="" />
+            <img
+              v-if="/^http|^https |^data:image/.test(child.logo)"
+              class="logo"
+              :src="child.logo"
+              :alt="child.title"
+            />
+            <div v-else>{{ child.logo }}</div>
           </div>
           <div class="child_title">{{ child.title }}</div>
         </div>
@@ -78,6 +84,11 @@ export default defineComponent({
             url: "http://mint-ui.github.io/#!/zh-cn",
           },
           {
+            title: "antdv1x",
+            logo: "https://www.antdv.com/assets/logo.1ef800a8.svg",
+            url: "https://1x.antdv.com/components/breadcrumb-cn",
+          },
+          {
             title: "nuxtjs",
             logo: "https://nuxtjs.org/design-kit/colored-logo.svg",
             url: "https://nuxtjs.org/docs/get-started/installation",
@@ -109,6 +120,11 @@ export default defineComponent({
             logo: "https://www.naiveui.com/assets/naivelogo.93278402.svg",
             url: "https://www.naiveui.com/zh-CN/light/docs/installation",
           },
+          {
+            title: "antdv3x",
+            logo: "https://www.antdv.com/assets/logo.1ef800a8.svg",
+            url: "https://antdv.com/docs/vue/introduce-cn",
+          },
         ],
       },
       {
@@ -128,6 +144,26 @@ export default defineComponent({
             title: "Node",
             logo: "http://img.nodejs.cn/logo.svg",
             url: "http://nodejs.cn/",
+          },
+          {
+            title: "eggjs",
+            logo: "https://zos.alipayobjects.com/rmsportal/JFKAMfmPehWfhBPdCjrw.svg",
+            url: "https://www.eggjs.org/zh-CN/intro",
+          },
+          {
+            title: "expressjs",
+            logo: "express",
+            url: "https://www.expressjs.com.cn/",
+          },
+          {
+            title: "ejs",
+            logo: "https://ejs.bootcss.com/assets/images/ejs-logo.png",
+            url: " https://ejs.bootcss.com/",
+          },
+          {
+            title: "koa",
+            logo: "https://koa.bootcss.com/public/images/koa-logo.png",
+            url: " https://koa.bootcss.com/",
           },
         ],
       },
@@ -162,6 +198,12 @@ export default defineComponent({
             url: "https://www.jquery123.com/",
           },
           {
+            title: "jquery插件库",
+            logo: "https://www.jq22.com/img/logo.png",
+            url: "https://www.jq22.com/mem9",
+          },
+
+          {
             title: "Bootstrap",
             logo: "https://v4.bootcss.com/bootstrap-logo.png",
             url: "https://www.bootcss.com/",
@@ -177,6 +219,46 @@ export default defineComponent({
             title: "momentjs",
             logo: "moment",
             url: "http://momentjs.cn/",
+          },
+          {
+            title: "swiper",
+            logo: "https://www.swiper.com.cn/templets/default/images/logo.png",
+            url: "https://www.swiper.com.cn/",
+          },
+          {
+            title: "TypeScript",
+            logo: "https://www.tslang.cn/assets/images/logo_nocircle.svg",
+            url: "https://www.tslang.cn/",
+          },
+          {
+            title: "Fabric",
+            logo: "Fabric",
+            url: "http://www.321332211.com/thread?topicId=249",
+          },
+        ],
+      },
+      {
+        title: "构建打包",
+        children: [
+          {
+            title: "webpack",
+            logo: "https://www.webpackjs.com/32dc115fbfd1340f919f0234725c6fb4.png",
+            url: "https://www.webpackjs.com/concepts/",
+          },
+          {
+            title: "vite",
+            logo: "https://cn.vitejs.dev/logo.svg",
+            url: "https://cn.vitejs.dev/guide/",
+          },
+          {
+            title: "gulp",
+            logo: "https://www.gulpjs.com.cn/img/gulp-white-text.svg",
+            url: "https://www.gulpjs.com.cn/",
+          },
+          {
+            title: "babel",
+            logo: "https://www.babeljs.cn/img/babel.png",
+            url: "https://www.babeljs.cn/",
           },
         ],
       },
@@ -204,14 +286,17 @@ export default defineComponent({
     border-radius: 5px;
     padding: 5px;
     cursor: pointer;
+    min-height: 180px;
     .child_logo {
       flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
+      font-size: 24px;
       .logo {
         width: 100%;
         position: relative;
+        filter: drop-shadow(1px 2px 4px rgba(0, 0, 0, 0.5));
       }
     }
     .child_title {
