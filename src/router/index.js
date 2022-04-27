@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-03-03 10:16:24
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-21 15:03:18
+ * @LastEditTime: 2022-04-26 16:07:27
  */
 import { createRouter, createWebHashHistory } from "vue-router";
 
@@ -90,6 +90,14 @@ export const routes = [
     component: () => import("@/views/tool/index.vue"),
     meta: {
       activeName: "工具",
+    },
+  },
+  {
+    path: "/like",
+    name: "like",
+    component: () => import("@/views/like.vue"),
+    meta: {
+      activeName: "喜欢",
     },
   },
 ];
