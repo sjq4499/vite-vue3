@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2021-12-07 13:55:53
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-19 16:37:23
+ * @LastEditTime: 2022-04-27 16:08:19
 -->
 
 <template>
@@ -16,8 +16,8 @@
     fullscreen
     :font-size="16"
     :line-height="16"
-    :width="384"
-    :height="384"
+    :width="1000"
+    :height="400"
     :x-offset="12"
     :y-offset="60"
     :image-width="164"

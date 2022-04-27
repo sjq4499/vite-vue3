@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-04-26 16:06:00
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-27 15:38:21
+ * @LastEditTime: 2022-04-27 16:01:16
 -->
 
 <template>
@@ -134,6 +134,11 @@ export default defineComponent({
             title: "React",
             logo: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K",
             url: "https://react.docschina.org/",
+          },
+          {
+            title: "antd",
+            logo: "https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg",
+            url: "https://ant.design/docs/react/introduce-cn",
           },
         ],
       },
@@ -328,7 +333,7 @@ export default defineComponent({
           },
           {
             title: "图片压缩",
-            logo: "compressImages",
+            logo: "Images",
             url: "https://sjq4499.github.io/vite-vue3/#/tool?activeName=compressImages&isHideTab=true",
           },
           {
@@ -345,6 +350,11 @@ export default defineComponent({
             title: "网易邮箱",
             logo: "data:image/png;base64,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",
             url: "https://mail.163.com/#return",
+          },
+          {
+            title: "leetcode",
+            logo: "https://static.leetcode-cn.com/cn-mono-assets/production/assets/logo-dark-cn.c42314a8.svg",
+            url: "https://leetcode-cn.com/",
           },
         ],
       },
