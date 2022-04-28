@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-04-26 16:06:00
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-28 10:05:17
+ * @LastEditTime: 2022-04-28 10:22:12
 -->
 
 <template>
@@ -199,7 +199,7 @@ export default defineComponent({
           },
           {
             title: "expressjs",
-            logo: "express",
+            logo: "https://www.expressjs.com.cn/images/favicon.png",
             url: "https://www.expressjs.com.cn/",
           },
           {
@@ -231,7 +231,7 @@ export default defineComponent({
           },
           {
             title: "mockjs",
-            logo: "mockjs",
+            logo: "http://mockjs.com/assets/img/logo-2.svg",
             url: "http://mockjs.com/",
           },
           {
@@ -264,7 +264,7 @@ export default defineComponent({
           },
           {
             title: "momentjs",
-            logo: "moment",
+            logo: "http://momentjs.cn/static/img/moment-favicon.png",
             url: "http://momentjs.cn/",
           },
           {
@@ -284,7 +284,7 @@ export default defineComponent({
           },
           {
             title: "es6",
-            logo: "es6",
+            logo: "https://es6.ruanyifeng.com/favicon.ico",
             url: "https://es6.ruanyifeng.com/",
           },
         ],
