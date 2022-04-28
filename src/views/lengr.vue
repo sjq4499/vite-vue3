@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-03-16 14:11:04
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-28 11:11:39
+ * @LastEditTime: 2022-04-28 15:36:16
 -->
 <template>
   <div class="lengr_main">
@@ -55,12 +55,12 @@ export default defineComponent({
         this.centerDialogVisible = true;
         this.routeDetail = data;
       } else {
-        this.$router.push(data.path);
+        router.push(data.path);
       }
     };
     const confirmFn = () => {
       if (this.routeDetail.meta.password === this.password) {
-        this.$router.push(this.routeDetail.path);
+        router.push(this.routeDetail.path);
       } else {
         this.$message({
           type: "error",
