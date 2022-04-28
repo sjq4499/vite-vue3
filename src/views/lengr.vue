@@ -3,19 +3,21 @@
  * @Author: sjq
  * @Date: 2022-03-16 14:11:04
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-16 16:26:29
+ * @LastEditTime: 2022-04-28 11:11:39
 -->
 <template>
   <div class="lengr_main">
-    <el-button
-      type="success"
-      class="list"
-      v-for="item in routes"
-      :key="item.name"
-      @click="goPage(item)"
-    >
-      {{ item.meta.activeName }}
-    </el-button>
+    <template v-for="item in routes" :key="item.name">
+      <el-button
+        type="success"
+        class="list"
+        @click="goPage(item)"
+        v-if="showAll || !item.meta.password"
+      >
+        {{ item.meta.activeName }}
+      </el-button>
+    </template>
+
     <el-dialog
       v-model="centerDialogVisible"
       title="请输入密码"
@@ -33,20 +35,15 @@
   </div>
 </template>
 <script>
-import { defineComponent, ref, reactive } from "vue";
+import { defineComponent, ref, reactive, onMounted } from "vue";
 import { routes } from "@/router/index";
+import { useRouter } from "vue-router";
 
 export default defineComponent({
   setup() {
-    return {
-      routes: routes.filter((item) => item.meta && item.meta.activeName),
-      centerDialogVisible: ref(false),
-      password: ref(""),
-      routeDetail: reactive({}),
-    };
-  },
-  methods: {
-    goPage(data) {
+    const router = useRouter();
+    const showAll = ref(false);
+    const goPage = (data) => {
       if (data.name === "lengr") {
         this.$message({
           message: "你已经在此页面了",
@@ -60,8 +57,8 @@ export default defineComponent({
       } else {
         this.$router.push(data.path);
       }
-    },
-    confirmFn() {
+    };
+    const confirmFn = () => {
       if (this.routeDetail.meta.password === this.password) {
         this.$router.push(this.routeDetail.path);
       } else {
@@ -70,7 +67,20 @@ export default defineComponent({
           message: "密码不对哟",
         });
       }
-    },
+    };
+    onMounted(() => {
+      let query = router.currentRoute.value.query;
+      showAll.value = query.showAll === "true";
+    });
+    return {
+      routes: routes.filter((item) => item.meta && item.meta.activeName),
+      centerDialogVisible: ref(false),
+      password: ref(""),
+      routeDetail: reactive({}),
+      showAll,
+      goPage,
+      confirmFn,
+    };
   },
 });
 </script>
