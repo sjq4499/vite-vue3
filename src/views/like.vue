@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-04-26 16:06:00
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-27 16:01:16
+ * @LastEditTime: 2022-04-28 10:05:17
 -->
 
 <template>
@@ -136,9 +136,51 @@ export default defineComponent({
             url: "https://react.docschina.org/",
           },
           {
+            title: "React生命周期",
+            logo: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K",
+            url: " https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/",
+          },
+          {
+            title: "reactrouter",
+            logo: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K",
+            url: " https://reactrouter.com/docs/en/v6",
+            comment:
+              "http://react-guide.github.io/react-router-cn/docs/guides/basics/RouteConfiguration.html",
+          },
+          {
+            title: "react-redux",
+            logo: "http://cn.redux.js.org/img/redux.svg",
+            url: "https://react-redux.js.org/",
+          },
+          {
+            title: "redux",
+            logo: "http://cn.redux.js.org/img/redux.svg",
+            url: "http://cn.redux.js.org/",
+          },
+          {
+            title: "dva",
+            logo: "dva",
+            url: "https://dvajs.com/guide/",
+          },
+          {
+            title: "MobX",
+            logo: "MobX",
+            url: "https://cn.mobx.js.org/",
+          },
+          {
             title: "antd",
             logo: "https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg",
             url: "https://ant.design/docs/react/introduce-cn",
+          },
+          {
+            title: "mobile-ant-design",
+            logo: "https://gw.alipayobjects.com/zos/bmw-prod/b874caa9-4458-412a-9ac6-a61486180a62.svg",
+            url: "https://mobile.ant.design/zh",
+          },
+          {
+            title: "reactnative",
+            logo: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K",
+            url: " https://reactnative.dev/",
           },
         ],
       },
@@ -355,6 +397,11 @@ export default defineComponent({
             title: "leetcode",
             logo: "https://static.leetcode-cn.com/cn-mono-assets/production/assets/logo-dark-cn.c42314a8.svg",
             url: "https://leetcode-cn.com/",
+          },
+          {
+            title: "今日诗词",
+            logo: "https://www.jinrishici.com/img/logo.png",
+            url: "https://www.jinrishici.com/#",
           },
         ],
       },
