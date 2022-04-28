@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-04-26 16:06:00
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-28 10:22:12
+ * @LastEditTime: 2022-04-28 10:40:36
 -->
 
 <template>
@@ -173,7 +173,7 @@ export default defineComponent({
             url: "https://ant.design/docs/react/introduce-cn",
           },
           {
-            title: "mobile-ant-design",
+            title: "antd-mobile",
             logo: "https://gw.alipayobjects.com/zos/bmw-prod/b874caa9-4458-412a-9ac6-a61486180a62.svg",
             url: "https://mobile.ant.design/zh",
           },
@@ -181,6 +181,11 @@ export default defineComponent({
             title: "reactnative",
             logo: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9Ii0xMS41IC0xMC4yMzE3NCAyMyAyMC40NjM0OCI+CiAgPHRpdGxlPlJlYWN0IExvZ288L3RpdGxlPgogIDxjaXJjbGUgY3g9IjAiIGN5PSIwIiByPSIyLjA1IiBmaWxsPSIjNjFkYWZiIi8+CiAgPGcgc3Ryb2tlPSIjNjFkYWZiIiBzdHJva2Utd2lkdGg9IjEiIGZpbGw9Im5vbmUiPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIi8+CiAgICA8ZWxsaXBzZSByeD0iMTEiIHJ5PSI0LjIiIHRyYW5zZm9ybT0icm90YXRlKDYwKSIvPgogICAgPGVsbGlwc2Ugcng9IjExIiByeT0iNC4yIiB0cmFuc2Zvcm09InJvdGF0ZSgxMjApIi8+CiAgPC9nPgo8L3N2Zz4K",
             url: " https://reactnative.dev/",
+          },
+          {
+            title: "nextjs",
+            logo: "https://www.nextjs.cn/static/images/nextjs-logo.png",
+            url: "https://www.nextjs.cn/",
           },
         ],
       },
@@ -286,6 +291,11 @@ export default defineComponent({
             title: "es6",
             logo: "https://es6.ruanyifeng.com/favicon.ico",
             url: "https://es6.ruanyifeng.com/",
+          },
+          {
+            title: "threejs",
+            logo: "threejs",
+            url: "http://www.webgl3d.cn/",
           },
         ],
       },
