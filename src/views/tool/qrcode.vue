@@ -3,10 +3,10 @@
  * @Author: sjq
  * @Date: 2022-04-14 14:06:14
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-21 16:54:48
+ * @LastEditTime: 2022-04-29 16:11:10
 -->
 <template>
-  <n-h1 prefix="bar" align-text>生成二维码</n-h1>
+  <n-h1 prefix="bar" align-text>生成二维码（切勿美化过度）</n-h1>
   <div class="qrcode_content">
     <div class="flexbox">
       内容：
@@ -55,53 +55,63 @@
           :key="index"
           :label="mapOptions[key]"
         >
-          <el-switch
-            v-if="typeof qrOptions[key] === 'boolean'"
-            v-model="qrOptions[key]"
-          />
-          <el-color-picker
-            v-else-if="/color/i.test(key)"
-            v-model="qrOptions[key]"
-            show-alpha
-          ></el-color-picker>
-          <n-upload
-            v-else-if="/image/i.test(key) || key === 'gifBackground'"
-            action=""
-            :show-file-list="false"
-            :customRequest="
-              (res) => {
-                return customRequest(res, key);
-              }
-            "
-            v-model="qrOptions[key]"
-            :accept="
-              key === 'gifBackground'
-                ? 'image/gif'
-                : 'image/jpeg,image/png,image/jpg'
-            "
-          >
-            <div v-if="qrOptions[key]" class="flexbox">
-              <img class="minimg" :src="qrOptions[key]" alt="" />
-              <el-icon @click="deleteImg(key)"><delete-filled /></el-icon>
-            </div>
-            <el-button v-else>点击上传</el-button>
-          </n-upload>
+          <template v-if="item.value !== 'components'">
+            <el-switch
+              v-if="typeof qrOptions[key] === 'boolean'"
+              v-model="qrOptions[key]"
+            />
+            <el-color-picker
+              v-else-if="/color/i.test(key)"
+              v-model="qrOptions[key]"
+              show-alpha
+            ></el-color-picker>
+            <n-upload
+              v-else-if="/image/i.test(key) || key === 'gifBackground'"
+              action=""
+              :show-file-list="false"
+              :customRequest="
+                (res) => {
+                  return customRequest(res, key);
+                }
+              "
+              v-model="qrOptions[key]"
+              :accept="
+                key === 'gifBackground'
+                  ? 'image/gif'
+                  : 'image/jpeg,image/png,image/jpg'
+              "
+            >
+              <div v-if="qrOptions[key]" class="flexbox">
+                <img class="minimg" :src="qrOptions[key]" alt="" />
+                <el-icon @click="deleteImg(key)"><delete-filled /></el-icon>
+              </div>
+              <el-button v-else>点击上传</el-button>
+            </n-upload>
 
-          <el-radio-group
-            v-else-if="key === 'correctLevel'"
-            v-model="qrOptions[key]"
-          >
-            <el-radio-button :label="0">低</el-radio-button>
-            <el-radio-button :label="1">中</el-radio-button>
-            <el-radio-button :label="2">高</el-radio-button>
-          </el-radio-group>
-          <el-input-number
-            v-else-if="/scale/i.test(key)"
-            v-model="qrOptions[key]"
-            :precision="2"
-            :step="0.1"
-          />
-          <el-input v-else v-model.number="qrOptions[key]" precision="2" />
+            <el-radio-group
+              v-else-if="key === 'correctLevel'"
+              v-model="qrOptions[key]"
+            >
+              <el-radio-button :label="0">低</el-radio-button>
+              <el-radio-button :label="1">中</el-radio-button>
+              <el-radio-button :label="2">高</el-radio-button>
+            </el-radio-group>
+            <el-input-number
+              v-else-if="/scale/i.test(key)"
+              v-model="qrOptions[key]"
+              :precision="2"
+              :step="0.1"
+            />
+            <el-input v-else v-model.number="qrOptions[key]" precision="2" />
+          </template>
+          <template v-else>
+            <el-input-number
+              v-model="qrOptions.components[key].scale"
+              :precision="2"
+              :step="0.1"
+            />
+            <el-switch v-model="qrOptions.components[key].protectors" />
+          </template>
         </el-form-item>
       </el-form>
     </n-tab-pane>
@@ -125,7 +135,7 @@ export default defineComponent({
   setup() {
     const qrcodeUrl = ref("200");
     const qrcodeText = ref(
-      "https://sjq4499.github.io/vite-vue3/#/tool?activeName=qrcode"
+      "https://sjq4499.github.io/vite-vue3/#/tool?activeName=qrcode&isHideTab=true"
     );
     const imgUrl = ref("");
     const analysisUpload = ref("");
@@ -187,6 +197,11 @@ export default defineComponent({
       autoColor: "根据二维码背景自动计算前背景色", //boolean 若为 true, 根据二维码背景自动计算colorDark值。
       // binarize: "二值化处理", //boolean 若为 true, 图像将被二值化处理, 未指定阈值则使用默认值
       // binarizeThreshold: "阈值", //阈值用于对整个图像进行二值化。 默认是128。 阈值(0 < < 255)二值化处理的阈值
+
+      data: "data",
+      timing: "timing",
+      alignment: "alignment",
+      cornerAlignment: "cornerAlignment",
     };
     const qrConfig = [
       {
@@ -208,8 +223,13 @@ export default defineComponent({
       },
       {
         title: "嵌入logo",
-        value: "name",
+        value: "logo",
         children: ["logoImage", "logoScale", "logoMargin", "logoCornerRadius"],
+      },
+      {
+        title: "数据区域点(测试中)",
+        value: "components",
+        children: ["data", "timing", "alignment", "cornerAlignment"],
       },
     ];
     const saveQrcode = (dom) => {
@@ -272,7 +292,7 @@ export default defineComponent({
       createQrcode();
     });
     watchEffect(() => {
-      console.log("重新生成二维码");
+      console.log(qrOptions.components.data, "重新生成二维码");
       createQrcode();
     });
 
