@@ -108,6 +108,15 @@ export const routes = [
       activeName: "喜欢",
     },
   },
+  {
+    path: "/swiper",
+    name: "swiper",
+    component: () => import("@/views/swiper.vue"),
+    meta: {
+      activeName: "轮播",
+      password: "小易是猪",
+    },
+  },
 ];
 
 export const router = createRouter({
