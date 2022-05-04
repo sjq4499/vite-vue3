@@ -26,7 +26,7 @@
   </div>
 </template>
 <script>
-import AutoAudios from '@/components/AutoAudios.vue';
+import AutoAudios from '@/components/autoAudios.vue';
 
 export default {
   components: { AutoAudios },

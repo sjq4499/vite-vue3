@@ -30,7 +30,7 @@
 
 <script>
 import { defineComponent, ref, reactive } from 'vue';
-import AutoAudios from '@/components/AutoAudios.vue';
+import AutoAudios from '@/components/autoAudios.vue';
 
 export default defineComponent({
   components: {
