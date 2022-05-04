@@ -39,12 +39,14 @@ export default defineComponent({
     const fileUrl = ref('');
 
     const play = () => {
-      document.querySelector('#audios').play();
+      let audio = document.querySelector('#audios');
+      if (!audio.paused) return;
+      audio.play();
       // 音乐兼容微信自动播放
       document.addEventListener(
         'WeixinJSBridgeReady',
         function () {
-          document.querySelector('#audios').play();
+          audio.play();
         },
         false
       );
@@ -59,6 +61,9 @@ export default defineComponent({
 
       // 点击播放
       document.addEventListener('click', () => {
+        play();
+      });
+      document.addEventListener('touchstart', () => {
         play();
       });
 

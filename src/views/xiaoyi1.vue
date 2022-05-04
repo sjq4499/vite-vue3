@@ -22,11 +22,14 @@
       <img src="@/assets/img/xiaoyi6.jpg" />
       <p></p>
     </div>
+    <AutoAudios />
   </div>
 </template>
 <script>
+import AutoAudios from '@/components/AutoAudios.vue';
+
 export default {
-  components: {},
+  components: { AutoAudios },
   data() {
     return {};
   },
