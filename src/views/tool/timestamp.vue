@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-04-02 09:52:03
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-18 13:53:24
+ * @LastEditTime: 2022-06-06 15:03:03
 -->
 <template>
   <div class="">
@@ -121,6 +121,9 @@ export default defineComponent({
     };
     watch(isTimeChange, (newValue, oldValue) => {
       changeTime();
+    });
+    watch(time, (newValue, oldValue) => {
+      time.value = newValue * 1;
     });
     return {
       nowTime,
