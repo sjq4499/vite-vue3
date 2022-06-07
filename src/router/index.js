@@ -50,6 +50,14 @@ export const routes = [
       activeName: "小易",
       password: "小易是猪",
     },
+  }, {
+    path: "/xiaoyi1",
+    name: "xiaoyi1",
+    component: () => import("@/views/xiaoyi1.vue"),
+    meta: {
+      activeName: "小易",
+      password: "小易是猪",
+    },
   },
   {
     path: "/susu",
@@ -98,6 +106,15 @@ export const routes = [
     component: () => import("@/views/like.vue"),
     meta: {
       activeName: "喜欢",
+    },
+  },
+  {
+    path: "/swiper",
+    name: "swiper",
+    component: () => import("@/views/swiper.vue"),
+    meta: {
+      activeName: "轮播",
+      password: "小易是猪",
     },
   },
 ];

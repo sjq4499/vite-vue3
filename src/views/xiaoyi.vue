@@ -5,6 +5,7 @@
  * @LastEditors: sjq
  * @LastEditTime: 2022-03-16 16:19:18
 -->
+
 <template>
   <div class="box">
     <ul class="minbox">
@@ -24,20 +25,23 @@
       <li></li>
     </ol>
   </div>
+  <AutoAudios />
 </template>
+
 <script>
-export default {
-  components: {},
-  data() {
-    return {};
+import { defineComponent, ref, reactive } from 'vue';
+import AutoAudios from '@/components/autoAudios.vue';
+
+export default defineComponent({
+  components: {
+    AutoAudios,
   },
-  computed: {},
-  watch: {},
-  created() {},
-  mounted() {},
-  methods: {},
-};
+  setup() {
+    return;
+  },
+});
 </script>
+
 <style lang="scss" scoped>
 @charset "utf-8";
 * {
