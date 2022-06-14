@@ -4,10 +4,10 @@
       <button
         v-for="(ite, ind) in item"
         :key="ind"
-        :class="{ active: ite.num === 10 }"
-        @click="handClick"
+        :class="{ active: ite.num === 10 && isShow, bgc1: isShow }"
+        @click="handClick(index, ind)"
       >
-        <span v-if="ite.num > 0">{{ ite.num }}</span>
+        <span v-if="ite.num > 0 && isShow">{{ ite.num }}</span>
       </button>
     </div>
   </div>
@@ -127,18 +127,35 @@ export default defineComponent({
       for (let i = 0; i < w.value; i++) {
         buttonArr[i] = new Array(w.value);
         for (let j = 0; j < w.value; j++) {
-          buttonArr[i][j] = { num: 0 };
+          buttonArr[i][j] = { num: 0, isShow: false };
         }
       }
       renderLei();
       renderNum();
     };
+    const handClick = (x, y) => {
+      let arr = JSON.parse(JSON.stringify(buttonArr));
+      if (buttonArr[x][y].num === 10) {
+        arr[x][y].isShow = true;
+        // setTimeout(function () {
+        //   alert("游戏失败");
+        //   init();
+        // }, 200);
+      } else {
+        arr[x][y].isShow = true;
+      }
+      buttonArr = JSON.parse(JSON.stringify(arr));
+
+      console.log(buttonArr[x][y], buttonArr[x][y].isShow, buttonArr);
+    };
+
     init();
 
     return {
       buttonArr,
       getNumArr,
       w,
+      handClick,
     };
   },
 });
@@ -186,5 +203,11 @@ p {
   top: 200px;
   right: 200px;
   font-size: 20px;
+}
+.hide {
+  display: none;
+}
+.show {
+  display: block;
 }
 </style>
