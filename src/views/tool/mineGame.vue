@@ -1,8 +1,14 @@
 <template>
+  <div class="mine_header">
+    <span>格子：{{ w }}*{{ w }}</span>
+    <span>雷：{{ leiNumber }} </span>
+    <span>标记：{{ signNum }}</span>
+  </div>
   <div class="box">
     <div class="list" v-for="(item, index) in buttonArr" :key="index">
-      <button
+      <div
         v-for="(ite, ind) in item"
+        class="list_row"
         :key="index + '' + ind"
         :class="{
           active: ite.num === 10 && ite.isShow,
@@ -14,37 +20,40 @@
       >
         <span v-if="ite.num > 0">{{ ite.num }}</span>
         <!-- <span v-if="ite.num > 0 && ite.isShow">{{ ite.num }}</span> -->
-      </button>
+      </div>
     </div>
   </div>
 </template>
 <script>
-import { defineComponent, ref, reactive, onMounted } from "vue";
+import { defineComponent, ref, reactive, onMounted, watch } from "vue";
 export default defineComponent({
   name: "mineGame",
 
   setup() {
-    let w = ref(16);
+    let w = ref(10);
     let buttonArr = ref([]);
     let checkArr = ref([]);
     let index = ref(0);
-    let leiNumber = ref(20);
+    let leiNumber = ref(10);
+    let signNum = ref(0);
+
     //生成地雷
     const renderLei = () => {
       const lei = () => {
         let leiArr = [];
         function fn() {
+          let num = leiNumber.value;
           //获取随机坐标
-          const x = Math.floor(Math.random() * 16);
-          const y = Math.floor(Math.random() * 16);
+          const x = Math.floor(Math.random() * num);
+          const y = Math.floor(Math.random() * num);
           leiArr.push([y, x]);
-          if (leiArr.length == leiNumber.value) {
+          if (leiArr.length == num) {
             //数组去重
             let obj = {};
             leiArr.forEach((item) => (obj[item] = item));
             leiArr = Object.values(obj);
           }
-          if (leiArr.length == leiNumber.value) {
+          if (leiArr.length == num) {
             return;
           }
           fn();
@@ -153,6 +162,11 @@ export default defineComponent({
           ) {
             //如果空白格周围一圈格子里面还有空白格，就将他们加入这个num0数组中，稍后再次循环一次这个点击事件
             arr.push(item);
+          } else if (
+            checkArr.value.findIndex((check) => check.index === item.index) ===
+            -1
+          ) {
+            checkArr.value.push(item);
           }
         }
       });
@@ -163,12 +177,6 @@ export default defineComponent({
     };
     const handClick = (data, x, y) => {
       // getNum(x, y);
-      console.log(
-        checkArr.value.findIndex((check) => check.index === data.index),
-        "index"
-      );
-      console.log(data);
-
       if (
         checkArr.value.findIndex((check) => check.index === data.index) !== -1
       )
@@ -194,29 +202,35 @@ export default defineComponent({
     };
     const signClick = (data, x, y) => {
       if (buttonArr.value[x][y].isShow) return;
-      checkArr.value.push(data);
-      console.log(data);
       if (buttonArr.value[x][y].isSign) {
         buttonArr.value[x][y].isSign = false;
+        signNum.value--;
         let index = checkArr.value.findIndex(
           (item) => item.index === data.index
         );
-        console.log(checkArr.value.length, "1");
         checkArr.value.splice(index, 1);
-        // checkArr.value = [];
-        console.log(checkArr.value.length, "2");
       } else {
+        checkArr.value.push(data);
+        signNum.value++;
         buttonArr.value[x][y].isSign = true;
       }
     };
 
     init();
 
+    watch(checkArr.value, () => {
+      console.log("first");
+      if (Math.pow(w.value, 2) === checkArr.value.length) {
+        alert("游戏胜利！");
+      }
+    });
     return {
       buttonArr,
       w,
       index,
       checkArr,
+      signNum,
+      leiNumber,
       handClick,
       signClick,
     };
@@ -225,8 +239,8 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .box {
-  width: 500px;
-  margin: 50px auto;
+  display: inline-block;
+  margin: 0 auto;
   padding: 5px;
   border: 5px solid black;
 }
@@ -236,10 +250,13 @@ export default defineComponent({
   height: 30px;
 }
 
-button {
+.list_row {
   width: 30px;
   height: 30px;
   background-color: #c0c0c0;
+  border: solid 1px #000;
+  text-align: center;
+  line-height: 2;
 }
 
 .bgc1 {
