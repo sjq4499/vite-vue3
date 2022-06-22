@@ -18,9 +18,33 @@
         @click="handClick(ite, index, ind)"
         @contextmenu.prevent="signClick(ite, index, ind)"
       >
-        <span v-if="ite.num > 0">{{ ite.num }}</span>
-        <!-- <span v-if="ite.num > 0 && ite.isShow">{{ ite.num }}</span> -->
+        <!-- <span v-if="ite.num > 0" :class="'lei' + ite.num">{{ ite.num }}</span> -->
+        <span
+          v-if="ite.num !== 10 && ite.num > 0 && ite.isShow"
+          :class="'lei' + ite.num"
+          >{{ ite.num }}</span
+        >
       </div>
+    </div>
+    <div v-if="gameProgress > 1" class="progress">
+      <div class="succed" v-if="gameProgress === 2">游戏胜利！</div>
+      <div class="error" v-else-if="gameProgress === 3">游戏失败！</div>
+    </div>
+  </div>
+  <div class="fn_box">
+    <div
+      @click="changeFn(1)"
+      :class="{ fn_active: fnActiveName === 1 }"
+      class="fn"
+    >
+      排雷
+    </div>
+    <div
+      @click="changeFn(2)"
+      :class="{ fn_active: fnActiveName === 2 }"
+      class="fn"
+    >
+      插旗
     </div>
   </div>
 </template>
@@ -36,6 +60,8 @@ export default defineComponent({
     let index = ref(0);
     let leiNumber = ref(10);
     let signNum = ref(0);
+    let gameProgress = ref(0); //0未开始 1进行中 2成功 3失败
+    let fnActiveName = ref(1); //1排雷 2插旗
 
     //生成地雷
     const renderLei = () => {
@@ -175,7 +201,13 @@ export default defineComponent({
         handClick(item, item.x, item.y);
       });
     };
+    // 排雷
     const handClick = (data, x, y) => {
+      gameProgress.value = 1;
+      if (fnActiveName.value === 2) {
+        signClick(data, x, y);
+        return;
+      }
       // getNum(x, y);
       if (
         checkArr.value.findIndex((check) => check.index === data.index) !== -1
@@ -186,6 +218,7 @@ export default defineComponent({
       checkArr.value.push(data);
       if (buttonArr.value[x][y].num === 10) {
         buttonArr.value[x][y].isShow = true;
+        gameProgress.value = 3;
         // setTimeout(function () {
         //   alert("游戏失败");
         //   init();
@@ -200,7 +233,9 @@ export default defineComponent({
         }
       }
     };
+    // 标雷
     const signClick = (data, x, y) => {
+      gameProgress.value = 1;
       if (buttonArr.value[x][y].isShow) return;
       if (buttonArr.value[x][y].isSign) {
         buttonArr.value[x][y].isSign = false;
@@ -215,13 +250,16 @@ export default defineComponent({
         buttonArr.value[x][y].isSign = true;
       }
     };
+    // 切换
+    const changeFn = (type) => {
+      fnActiveName.value = type;
+    };
 
     init();
 
     watch(checkArr.value, () => {
-      console.log("first");
       if (Math.pow(w.value, 2) === checkArr.value.length) {
-        alert("游戏胜利！");
+        gameProgress.value = 2;
       }
     });
     return {
@@ -231,8 +269,11 @@ export default defineComponent({
       checkArr,
       signNum,
       leiNumber,
+      gameProgress,
+      fnActiveName,
       handClick,
       signClick,
+      changeFn,
     };
   },
 });
@@ -243,6 +284,24 @@ export default defineComponent({
   margin: 0 auto;
   padding: 5px;
   border: 5px solid black;
+  position: relative;
+  .progress {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    .succed {
+      color: rgb(255, 220, 0);
+    }
+    .error {
+      color: #000;
+    }
+  }
 }
 
 .list {
@@ -289,5 +348,49 @@ p {
 }
 .show {
   display: block;
+}
+.lei1 {
+  color: rgb(3, 2, 238);
+}
+.lei2 {
+  color: rgb(15, 121, 13);
+}
+.lei3 {
+  color: rgb(215, 16, 16);
+}
+.lei4 {
+  color: rgb(2, 0, 126);
+}
+.lei5 {
+  color: rgb(120, 4, 4);
+}
+.lei6 {
+  color: rgb(6, 125, 126);
+}
+.mine_header {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 24px;
+}
+.fn_box {
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-evenly;
+  .fn {
+    padding: 5px 20px;
+    border-radius: 5px;
+    border: solid 1px #c0c0c0;
+  }
+  .fn:hover {
+    color: #1890ff;
+  }
+  .fn_active {
+    background: #1890ff;
+    border: solid 1px #1890ff;
+    color: #fff;
+  }
+  .fn_active:hover {
+    color: #fff;
+  }
 }
 </style>
