@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-03-07 15:39:13
  * @LastEditors: sjq
- * @LastEditTime: 2022-03-19 14:48:38
+ * @LastEditTime: 2022-08-12 17:00:52
 -->
 <template>
   <div class="container" id="scratch_card">
@@ -14,7 +14,12 @@
     </div>
     <div class="award_box">
       <div class="award" v-if="showPrize">
-        <img :class="{auto_img:isScratch}" v-if="imgObj.url" :src="imgObj.url" alt="" />
+        <img
+          :class="{ auto_img: isScratch }"
+          v-if="imgObj.url"
+          :src="imgObj.url"
+          alt=""
+        />
         <span class="comment" v-else>啥也没有，啥也不是</span>
       </div>
       <canvas
@@ -29,67 +34,67 @@
   </div>
 </template>
 <script>
-import { defineComponent, ref, reactive } from "vue";
-import { getImageUrl } from "@/utils/index.js";
+import { defineComponent, ref, reactive } from 'vue';
+import { getImageUrl } from '@/utils/index.js';
 
 export default defineComponent({
   setup() {
     return {
-      c1: ref(""), //画布
-      ctx: ref(""), //画笔
+      c1: ref(''), //画布
+      ctx: ref(''), //画笔
       ismousedown: ref(false), //标志用户是否按下鼠标或开始触摸
-      fontem: ref(""), // 获取html字体大小
+      fontem: ref(''), // 获取html字体大小
       isScratch: ref(false), // 是否刮过卡
       showPrize: ref(false), // 显示奖品
       getImageUrl,
       imageList: ref([
-        { url: "images/1.gif", comment: "平底锅" },
-        { url: null, comment: "屁" },
-        { url: null, comment: "屁" },
-        { url: "images/3.gif", comment: "表情" },
-        { url: "images/1.jpg", comment: "美女" },
-        { url: "images/2.jpg", comment: "美女" },
-        { url: "images/3.jpg", comment: "美女" },
-        { url: "images/4.jpg", comment: "美女" },
-        { url: "images/5.jpg", comment: "美女" },
-        { url: "images/6.jpg", comment: "美女" },
-        { url: "images/7.jpg", comment: "美女" },
-        { url: "images/8.jpg", comment: "美女" },
-        { url: "images/9.jpg", comment: "美女" },
-        { url: "images/10.jpg", comment: "美女" },
-        { url: "images/11.jpg", comment: "美女" },
-        { url: "images/12.jpg", comment: "美女" },
-        { url: "images/13.jpg", comment: "美女" },
-        { url: "images/14.jpg", comment: "美女" },
-        { url: "images/15.jpg", comment: "檀葭老婆", time: 2000 },
-        { url: "images/16.jpg", comment: "檀葭老婆", time: 2000 },
-        { url: "images/17.jpg", comment: "美女" },
-        { url: "images/18.jpg", comment: "美女" },
-        { url: "images/19.jpg", comment: "小七姐姐", time: 2000 },
-        { url: "images/20.jpg", comment: "小哥哥" },
-        { url: "images/21.jpg", comment: "小哥哥" },
-        { url: "images/22.jpg", comment: "美女" },
-        { url: "images/7.png", comment: "美女" },
-        { url: "images/6.png", comment: "美女" },
-        { url: "img/xiaoyi1.jpg", comment: "小易", time: 500 },
-        { url: "img/susu.jpg", comment: "苏苏", time: 500 },
+        { url: 'images/1.gif', comment: '平底锅' },
+        { url: null, comment: '屁' },
+        { url: null, comment: '屁' },
+        { url: 'images/3.gif', comment: '表情' },
+        { url: 'images/1.jpg', comment: '美女' },
+        { url: 'images/2.jpg', comment: '美女' },
+        { url: 'images/3.jpg', comment: '美女' },
+        { url: 'images/4.jpg', comment: '美女' },
+        { url: 'images/5.jpg', comment: '美女' },
+        { url: 'images/6.jpg', comment: '美女' },
+        { url: 'images/7.jpg', comment: '美女' },
+        { url: 'images/8.jpg', comment: '美女' },
+        { url: 'images/9.jpg', comment: '美女' },
+        { url: 'images/10.jpg', comment: '美女' },
+        { url: 'images/11.jpg', comment: '美女' },
+        { url: 'images/12.jpg', comment: '美女' },
+        { url: 'images/13.jpg', comment: '美女' },
+        { url: 'images/14.jpg', comment: '美女' },
+        { url: 'images/15.jpg', comment: '檀葭老婆', time: 2000 },
+        { url: 'images/16.jpg', comment: '檀葭老婆', time: 2000 },
+        { url: 'images/17.jpg', comment: '美女' },
+        { url: 'images/18.jpg', comment: '美女' },
+        { url: 'images/19.jpg', comment: '小七姐姐', time: 2000 },
+        { url: 'images/20.jpg', comment: '小哥哥' },
+        { url: 'images/21.jpg', comment: '小哥哥' },
+        { url: 'images/22.jpg', comment: '美女' },
+        { url: 'images/7.png', comment: '美女' },
+        { url: 'images/6.png', comment: '美女' },
+        { url: 'img/xiaoyi1.jpg', comment: '小易', time: 500 },
+        { url: 'img/susu.jpg', comment: '苏苏', time: 500 },
       ]),
-      imgObj: reactive({ url: "", comment: "" }),
+      imgObj: reactive({ url: '', comment: '' }),
     };
   },
   mounted() {
     this.fontem = parseInt(
-      window.getComputedStyle(document.documentElement, null)["font-size"]
+      window.getComputedStyle(document.documentElement, null)['font-size']
     );
-    this.scratchCard = document.getElementById("scratch_card");
+    this.scratchCard = document.getElementById('scratch_card');
     //这是为了不同分辨率上配合@media自动调节刮的宽度
-    this.c1 = document.getElementById("c1");
+    this.c1 = document.getElementById('c1');
     //这里很关键，canvas自带两个属性width、height,我理解为画布的分辨率，跟style中的width、height意义不同。
     //最好设置成跟画布在页面中的实际大小一样
     //不然canvas中的坐标跟鼠标的坐标无法匹配
     this.c1.width = this.c1.clientWidth;
     this.c1.height = this.c1.clientHeight;
-    this.ctx = this.c1.getContext("2d");
+    this.ctx = this.c1.getContext('2d');
     this.initCanvas();
   },
   created() {
@@ -104,15 +109,15 @@ export default defineComponent({
   methods: {
     // 画刮刮卡
     initCanvas() {
-      this.ctx.globalCompositeOperation = "source-over";
-      this.ctx.fillStyle = "#e5e5e5";
+      this.ctx.globalCompositeOperation = 'source-over';
+      this.ctx.fillStyle = '#e5e5e5';
       this.ctx.fillRect(0, 0, this.c1.clientWidth, this.c1.clientHeight);
       this.ctx.fill();
-      this.ctx.font = "Bold 24px Arial";
-      this.ctx.textAlign = "center";
-      this.ctx.fillStyle = "#a0a0a0";
+      this.ctx.font = 'Bold 24px Arial';
+      this.ctx.textAlign = 'center';
+      this.ctx.fillStyle = '#a0a0a0';
       //有些老的手机自带浏览器不支持destination-out,下面的代码中有修复的方法
-      this.ctx.globalCompositeOperation = "destination-out";
+      this.ctx.globalCompositeOperation = 'destination-out';
     },
     touchstart(e) {
       e.preventDefault();
@@ -120,7 +125,7 @@ export default defineComponent({
     },
     // 操作刮卡
     touchend(e) {
-      sessionStorage.setItem("isScratch", true);
+      sessionStorage.setItem('isScratch', true);
       e.preventDefault();
       //得到canvas的全部数据
       var a = this.ctx.getImageData(0, 0, this.c1.width, this.c1.height);
@@ -141,7 +146,7 @@ export default defineComponent({
         if (e.changedTouches) {
           e = e.changedTouches[e.changedTouches.length - 1];
         }
-        var topY = document.getElementById("scratch_card").offsetTop;
+        var topY = document.getElementById('scratch_card').offsetTop;
         var oX = this.c1.offsetLeft,
           oY = this.c1.offsetTop + topY;
         var x = (e.clientX + document.body.scrollLeft || e.pageX) - oX || 0,
@@ -168,8 +173,8 @@ export default defineComponent({
             this.imgObj.url = getImageUrl(this.imgObj.url);
             this.isScratch = false;
             this.$message({
-              type: "success",
-              message: "别瞅了，没了",
+              type: 'success',
+              message: '别瞅了，没了',
             });
           }, this.imgObj.time);
         }
