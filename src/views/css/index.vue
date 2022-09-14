@@ -14,23 +14,23 @@
       :key="item.name"
       @click="handleClick(item)"
     >
-      {{ item.name }}
+      {{ $filters.tabZN(item.name) }}
     </el-button>
     <component :is="activeName"></component>
   </div>
 </template>
 <script>
-import { defineComponent, ref, reactive, onMounted } from "vue";
-import { getallComponents } from "@/utils/index";
+import { defineComponent, ref, reactive, onMounted } from 'vue';
+import { getallComponents } from '@/utils/index';
 
 // const allComponents = import.meta.glob("../css/*.vue");
-let res_components = getallComponents(import.meta.globEager("../css/*.vue"));
+let res_components = getallComponents(import.meta.globEager('../css/*.vue'));
 
 export default defineComponent({
   components: { ...res_components },
-  name: "Css",
+  name: 'Css',
   setup() {
-    let activeName = ref("");
+    let activeName = ref('');
     onMounted(() => {
       activeName.value = res_components[Object.keys(res_components)[0]].name;
     });

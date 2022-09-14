@@ -3,7 +3,7 @@
  * @Author: sjq
  * @Date: 2022-04-02 09:52:03
  * @LastEditors: sjq
- * @LastEditTime: 2022-04-07 09:50:36
+ * @LastEditTime: 2022-09-14 09:34:12
 -->
 <template>
   <div class="main">
@@ -28,9 +28,9 @@
   </div>
 </template>
 <script>
-import { defineComponent, ref, reactive } from "vue";
+import { defineComponent, ref, reactive } from 'vue';
 export default defineComponent({
-  name: "Center",
+  name: 'Center',
   setup() {
     return;
   },
