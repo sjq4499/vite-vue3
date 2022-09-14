@@ -71,26 +71,38 @@
   </div>
 </template>
 <script>
-export default {
+import { defineComponent, ref, reactive, onMounted, computed } from 'vue';
+export default defineComponent({
   name: 'ldd',
-  data() {
-    return {
-      show: true,
-      type: 1 + parseInt(Math.random() * 6),
-      debug: false,
+
+  setup() {
+    let show = ref(true);
+    let type = ref(1 + parseInt(Math.random() * 6));
+    let debug = ref(false);
+
+    let test = () => {
+      show.value = true;
+      setTimeout(() => {
+        if (!debug.value) {
+          if (type.value === 8) {
+            type.value = 0;
+          }
+          type.value++;
+        }
+        show.value = false;
+        setTimeout(test, 3000 + Math.random() * 1000);
+      }, 1000);
     };
-  },
-  created() {
-    setTimeout(() => {
-      this.test();
-    }, 2000);
-  },
-  updated() {},
-  computed: {
-    panelClass() {
+    onMounted(() => {
+      setTimeout(() => {
+        test();
+      }, 2000);
+    });
+
+    let panelClass = computed(() => {
       let panelClass = '';
-      panelClass += this.show ? 'show' : '';
-      switch (this.type) {
+      panelClass += show.value ? 'show' : '';
+      switch (type.value) {
         case 1:
           panelClass += ' wechat';
           break;
@@ -110,31 +122,16 @@ export default {
           panelClass += ' normal';
       }
       return panelClass;
-    },
-  },
-  methods: {
-    test() {
-      this.show = true;
-      setTimeout(() => {
-        if (!this.debug) {
-          if (this.type === 8) {
-            this.type = 0;
-          }
-          this.type++;
-        }
-        this.show = false;
-        setTimeout(this.test, 3000 + Math.random() * 1000);
-      }, 1000);
-    },
-  },
-};
+    });
 
-// import { defineComponent, ref, reactive } from 'vue';
-// export default defineComponent({
-//   setup() {
-//     return;
-//   },
-// });
+    return {
+      show,
+      type,
+      debug,
+      panelClass,
+    };
+  },
+});
 </script>
 <style lang="scss" scoped>
 @import url('@/assets/font/index');
