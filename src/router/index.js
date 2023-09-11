@@ -126,6 +126,15 @@ export const routes = [
       password: '小易是猪',
     },
   },
+
+  {
+    path: '/fetch',
+    name: 'fetch',
+    component: () => import('@/views/fetch.vue'),
+    meta: {
+      activeName: 'fetch',
+    },
+  },
 ];
 
 export const router = createRouter({
