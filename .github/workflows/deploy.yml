@@ -12,10 +12,11 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-       - name: Set up Node.js 14    
+    
+       - name: Set up Node.js 17 
          uses: actions/setup-node@v1  
          with:  
-            node-version: 14  
+            node-version: 17
 
       - name: Checkout
         uses: actions/checkout@master # If you're using actions/checkout@v2 you must set persist-credentials to false in most cases for the deployment to work correctly.
@@ -23,7 +24,7 @@ jobs:
           persist-credentials: false
       - name: Install and Build
         run: |
-          cnpm install
+          npm install
           npm run build
 
       - name: Deploy
