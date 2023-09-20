@@ -5,15 +5,15 @@
  * @LastEditors: sjq
  * @LastEditTime: 2022-04-20 14:32:31
  */
-import { defineConfig, loadEnv } from "vite";
-import vue from "@vitejs/plugin-vue";
-import AutoImport from "unplugin-auto-import/vite";
-import Components from "unplugin-vue-components/vite";
+import { defineConfig, loadEnv } from 'vite';
+import vue from '@vitejs/plugin-vue';
+import AutoImport from 'unplugin-auto-import/vite';
+import Components from 'unplugin-vue-components/vite';
 import {
   ElementPlusResolver,
   NaiveUiResolver,
-} from "unplugin-vue-components/resolvers";
-import path from "path";
+} from 'unplugin-vue-components/resolvers';
+import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
@@ -22,6 +22,9 @@ export default defineConfig(({ command, mode }) => {
   console.log(mode, env);
   return {
     base: env.VITE_APP_BASE_API, // 打包路径
+    // server: {
+    //   host: '0.0.0.0',
+    // },
     plugins: [
       vue(),
       AutoImport({
@@ -33,7 +36,7 @@ export default defineConfig(({ command, mode }) => {
     ],
     resolve: {
       alias: {
-        "@": path.resolve(__dirname, "./src"),
+        '@': path.resolve(__dirname, './src'),
       },
     },
     css: {
@@ -45,16 +48,16 @@ export default defineConfig(({ command, mode }) => {
       },
     },
     build: {
-      outDir: "dist", //输入文件夹
-      assetsDir: "assets", //静态资源目录
+      outDir: 'dist', //输入文件夹
+      assetsDir: 'assets', //静态资源目录
       cssCodeSplit: true, //启用/禁用 CSS 代码拆分
-      sourcemap: mode === "producion", //是否生产source Map源码
+      sourcemap: mode === 'producion', //是否生产source Map源码
       chunkSizeWarningLimit: 1000, // 大小警告的限制(以 kbs 为单位)
       rollupOptions: {
         output: {
-          chunkFileNames: "static/js/[name]-[hash].js",
-          entryFileNames: "static/js/[name]-[hash].js",
-          assetFileNames: "static/[ext]/[name]-[hash].[ext]",
+          chunkFileNames: 'static/js/[name]-[hash].js',
+          entryFileNames: 'static/js/[name]-[hash].js',
+          assetFileNames: 'static/[ext]/[name]-[hash].[ext]',
         },
       },
       // terserOptions: {
