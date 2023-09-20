@@ -15,19 +15,10 @@ jobs:
           node-version: 14  
       - run: npm install  
       - run: npm run build  
-      - uses: actions/upload-artifact@v2  
-        with:  
-          name: dist  
-          path: dist  
-  deploy:  
-    runs-on: ubuntu-latest  
-    steps:  
-      - uses: actions/checkout@v2  
-      - uses: actions/download-artifact@v2  
-        with:  
-          name: dist  
-          path: dist  
-      - uses: JamesIves/github-pages-deploy-action@4.1.4  
-        with:  
-          branch: gh-pages  
-          folder: dist
+      
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@releases/v3 # 写好的action
+        with:
+          ACCESS_TOKEN: ${{ secrets.DEPLOY_KEY }}
+          BRANCH: gh-pages #操作应部署到的分支。
+          FOLDER: dist #操作应部署的文件夹。
