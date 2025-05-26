@@ -24,6 +24,7 @@
     "swiper": "^8.1.4",
     "vue": "^3.2.16",
     "vue-router": "^4.0.13",
+    "vue-shepherd": "^3.0.0",
     "xlsx": "^0.18.2"
   },
   "devDependencies": {

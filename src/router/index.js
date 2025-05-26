@@ -126,13 +126,20 @@ export const routes = [
       password: '小易是猪',
     },
   },
-
   {
     path: '/fetch',
     name: 'fetch',
     component: () => import('@/views/fetch.vue'),
     meta: {
       activeName: 'fetch',
+    },
+  },
+  {
+    path: '/ylyk',
+    name: 'ylyk',
+    component: () => import('@/views/ylyk.vue'),
+    meta: {
+      activeName: 'ylyk',
     },
   },
 ];
